@@ -1587,7 +1587,7 @@ textarea {
 .footer__watermark {
   position: absolute;
   left: 50%;
-  bottom: -26px;
+  bottom: 10px;
   transform: translateX(-50%);
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 11vw, 11rem);
