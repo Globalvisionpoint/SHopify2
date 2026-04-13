@@ -353,7 +353,7 @@ textarea {
   position: relative;
   flex: 1;
   min-width: 0;
-  margin-inline: 32px;
+  margin-inline: 1cm;
 }
 
 .header__search-input {
