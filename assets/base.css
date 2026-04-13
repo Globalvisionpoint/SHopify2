@@ -1,6 +1,6 @@
 :root {
-  --page-width: 1220px;
-  --page-width-wide: 1360px;
+  --page-width: 1480px;
+  --page-width-wide: 1720px;
   --color-primary: #ed1c24;
   --color-primary-dark: #92050d;
   --color-primary-soft: #ffd9dc;
@@ -81,12 +81,19 @@ textarea {
 
 .page-width,
 .page-width-wide {
-  width: min(calc(100% - 24px), var(--page-width));
+  width: min(calc(100% - 16px), var(--page-width));
   margin: 0 auto;
 }
 
 .page-width-wide {
-  width: min(calc(100% - 10px), var(--page-width-wide));
+  width: min(calc(100% - 16px), var(--page-width-wide));
+}
+
+@media screen and (min-width: 1280px) {
+  .page-width,
+  .page-width-wide {
+    width: min(calc(100% - 8px), var(--page-width-wide));
+  }
 }
 
 .section-space {
