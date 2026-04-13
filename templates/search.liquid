@@ -2,6 +2,11 @@
   <div class="page-width page-backdrop">
     <div class="collection-page__toolbar">
       <div>
+        <p class="collection-page__crumbs">
+          <a href="{{ routes.root_url }}">Prima pagina</a>
+          <span>/</span>
+          <span>Rezultate de cautare pentru "{{ search.terms }}"</span>
+        </p>
         <h1 class="collection-page__title">Rezultatele cautarii pentru: "{{ search.terms }}"</h1>
       </div>
 
@@ -19,38 +24,56 @@
       {% endif %}
     </div>
 
-    {% if search.performed %}
-      {% if search.results_count == 0 %}
-        <div class="search-no-results">
-          <p>Nu am gasit produse pentru "{{ search.terms }}"</p>
-          <p>Incearca cu alti termeni de cautare.</p>
-        </div>
-      {% else %}
-        <div>
-          {% paginate search.results by 12 %}
-            <div class="collection-grid">
-              {% for item in search.results %}
-                {% if item.object_type == 'product' %}
-                  {% render 'product-card', product: item %}
-                {% endif %}
-              {% endfor %}
-            </div>
+    <div class="collection-page__layout">
+      <aside class="collection-sidebar">
+        <details class="collection-sidebar__group" open>
+          <summary>Categorii</summary>
+          <div class="collection-sidebar__content">
+            <p class="collection-sidebar__hint">Filtrare optionala pentru categori.</p>
+          </div>
+        </details>
 
-            {% if paginate.pages > 1 %}
-              <nav class="pagination" aria-label="Paginare cautare">
-                {% if paginate.previous %}
-                  <a href="{{ paginate.previous.url }}" class="pagination__item">Anterior</a>
-                {% endif %}
-                <span class="pagination__item pagination__item--current">{{ paginate.current_page }} / {{ paginate.pages }}</span>
-                {% if paginate.next %}
-                  <a href="{{ paginate.next.url }}" class="pagination__item">Urmator</a>
-                {% endif %}
-              </nav>
-            {% endif %}
-          {% endpaginate %}
-        </div>
-      {% endif %}
-    {% endif %}
+        <details class="collection-sidebar__group" open>
+          <summary>Pret</summary>
+          <div class="collection-sidebar__content">
+            <p class="collection-sidebar__hint">Filtrare optionala dupa pret.</p>
+          </div>
+        </details>
+      </aside>
+
+      <div>
+        {% if search.performed %}
+          {% if search.results_count == 0 %}
+            <div class="search-no-results">
+              <p>Nu am gasit produse pentru "{{ search.terms }}"</p>
+              <p>Incearca cu alti termeni de cautare.</p>
+            </div>
+          {% else %}
+            {% paginate search.results by 12 %}
+              <div class="collection-grid">
+                {% for item in search.results %}
+                  {% if item.object_type == 'product' %}
+                    {% render 'product-card', product: item %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+              {% if paginate.pages > 1 %}
+                <nav class="pagination" aria-label="Paginare cautare">
+                  {% if paginate.previous %}
+                    <a href="{{ paginate.previous.url }}" class="pagination__item">Anterior</a>
+                  {% endif %}
+                  <span class="pagination__item pagination__item--current">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+                  {% if paginate.next %}
+                    <a href="{{ paginate.next.url }}" class="pagination__item">Urmator</a>
+                  {% endif %}
+                </nav>
+              {% endif %}
+            {% endpaginate %}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
   </div>
 </section>
 
@@ -66,3 +89,4 @@
     margin: 10px 0;
   }
 </style>
+
