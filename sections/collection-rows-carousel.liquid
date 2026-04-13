@@ -17,24 +17,33 @@
           {% endif %}
         </div>
 
-        <div class="product-rail product-rail--row">
-          {% if row_collection != blank and row_collection.products_count > 0 %}
-            {% for product in row_collection.products limit: section.settings.products_to_show %}
-              {% render 'product-card', product: product %}
-            {% endfor %}
-          {% else %}
-            {% for index in (1..4) %}
-              <article class="product-card product-card--placeholder">
-                <div class="product-card__media">{{ 'product-' | append: index | placeholder_svg_tag: 'product-card__placeholder-image' }}</div>
-                <div class="product-card__body">
-                  <p class="product-card__title">Produs demonstrativ {{ index }}</p>
-                  <div class="price-block">
-                    <span class="price-block__current">99,00 lei</span>
+        <div class="rail-carousel" data-rail-carousel>
+          <button class="rail-carousel__arrow rail-carousel__arrow--prev" type="button" aria-label="Produse anterioare" data-rail-prev>
+            {% render 'icon', name: 'arrow-right' %}
+          </button>
+          <div class="product-rail product-rail--row" data-rail-track>
+            {% if row_collection != blank and row_collection.products_count > 0 %}
+              {% for product in row_collection.products limit: section.settings.products_to_show %}
+                {% render 'product-card', product: product %}
+              {% endfor %}
+            {% else %}
+              {% for index in (1..4) %}
+                <article class="product-card product-card--placeholder">
+                  <div class="product-card__media">{{ 'product-' | append: index | placeholder_svg_tag: 'product-card__placeholder-image' }}</div>
+                  <div class="product-card__body">
+                    <p class="product-card__title">Produs demonstrativ {{ index }}</p>
+                    <div class="price-block">
+                      <span class="price-block__current">99,00 lei</span>
+                    </div>
                   </div>
-                </div>
-              </article>
-            {% endfor %}
-          {% endif %}
+                </article>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <button class="rail-carousel__arrow rail-carousel__arrow--next" type="button" aria-label="Produse urmatoare" data-rail-next>
+            {% render 'icon', name: 'arrow-right' %}
+          </button>
+          <div class="rail-carousel__dots" data-rail-dots></div>
         </div>
       </div>
     {% endfor %}

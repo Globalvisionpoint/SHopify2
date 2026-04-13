@@ -284,4 +284,73 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  const initRailCarousel = (carousel) => {
+    const track = carousel.querySelector('[data-rail-track]');
+    const prev = carousel.querySelector('[data-rail-prev]');
+    const next = carousel.querySelector('[data-rail-next]');
+    const dotsWrap = carousel.querySelector('[data-rail-dots]');
+    if (!track || !prev || !next || !dotsWrap) return;
+
+    const getPageWidth = () => Math.max(1, track.clientWidth);
+
+    const getPageCount = () => {
+      const pageWidth = getPageWidth();
+      return Math.max(1, Math.ceil(track.scrollWidth / pageWidth));
+    };
+
+    const getPageIndex = () => {
+      const pageWidth = getPageWidth();
+      return Math.round(track.scrollLeft / pageWidth);
+    };
+
+    const renderDots = () => {
+      const pageCount = getPageCount();
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < pageCount; i += 1) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'rail-carousel__dot';
+        dot.setAttribute('aria-label', `Pagina ${i + 1}`);
+        dot.addEventListener('click', () => {
+          track.scrollTo({ left: i * getPageWidth(), behavior: 'smooth' });
+        });
+        dotsWrap.appendChild(dot);
+      }
+      dotsWrap.hidden = pageCount <= 1;
+    };
+
+    const sync = () => {
+      const pageCount = getPageCount();
+      const pageIndex = Math.min(pageCount - 1, getPageIndex());
+      const dots = dotsWrap.querySelectorAll('.rail-carousel__dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('is-active', index === pageIndex);
+      });
+
+      prev.disabled = pageIndex <= 0;
+      next.disabled = pageIndex >= pageCount - 1;
+      prev.hidden = pageCount <= 1;
+      next.hidden = pageCount <= 1;
+    };
+
+    prev.addEventListener('click', () => {
+      track.scrollBy({ left: -getPageWidth(), behavior: 'smooth' });
+    });
+
+    next.addEventListener('click', () => {
+      track.scrollBy({ left: getPageWidth(), behavior: 'smooth' });
+    });
+
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', () => {
+      renderDots();
+      sync();
+    });
+
+    renderDots();
+    sync();
+  };
+
+  document.querySelectorAll('[data-rail-carousel]').forEach(initRailCarousel);
 });
