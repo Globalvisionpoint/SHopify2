@@ -2114,7 +2114,7 @@ textarea {
   .hero-promo__image,
   .hero-promo__placeholder,
   .hero-promo__image--placeholder {
-    min-height: 460px;
+    min-height: 520px;
     margin-top: 0;
     border-bottom-left-radius: 90px 34px;
     border-bottom-right-radius: 90px 34px;
