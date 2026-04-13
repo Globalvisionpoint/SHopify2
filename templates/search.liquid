@@ -1,4 +1,4 @@
-<section class="collection-page section-space">
+<section class="collection-page section-space search-page">
   <div class="page-width page-backdrop">
     <div class="collection-page__toolbar">
       <div>
@@ -26,19 +26,44 @@
 
     <div class="collection-page__layout">
       <aside class="collection-sidebar">
-        <details class="collection-sidebar__group" open>
-          <summary>Categorii</summary>
-          <div class="collection-sidebar__content">
-            <p class="collection-sidebar__hint">Filtrare optionala pentru categori.</p>
-          </div>
-        </details>
+        {% if search.filters.size > 0 %}
+          {% for filter in search.filters %}
+            <details class="collection-sidebar__group" open>
+              <summary>{{ filter.label }}</summary>
+              <div class="collection-sidebar__content">
+                {% case filter.type %}
+                  {% when 'list' %}
+                    {% for value in filter.values %}
+                      <a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" class="facet-link {% if value.active %}is-active{% endif %}">
+                        {{ value.label }}
+                        <span>{{ value.count }}</span>
+                      </a>
+                    {% endfor %}
+                  {% when 'price_range' %}
+                    <div class="facet-price">
+                      <span>{{ filter.min_value.value | default: 0 | money_without_trailing_zeros }}</span>
+                      <span>-</span>
+                      <span>{{ filter.max_value.value | default: filter.range_max | money_without_trailing_zeros }}</span>
+                    </div>
+                {% endcase %}
+              </div>
+            </details>
+          {% endfor %}
+        {% else %}
+          <details class="collection-sidebar__group" open>
+            <summary>Categorii</summary>
+            <div class="collection-sidebar__content">
+              <p class="collection-sidebar__hint">Configureaza filtrele din Shopify Search & Discovery.</p>
+            </div>
+          </details>
 
-        <details class="collection-sidebar__group" open>
-          <summary>Pret</summary>
-          <div class="collection-sidebar__content">
-            <p class="collection-sidebar__hint">Filtrare optionala dupa pret.</p>
-          </div>
-        </details>
+          <details class="collection-sidebar__group" open>
+            <summary>Pret</summary>
+            <div class="collection-sidebar__content">
+              <p class="collection-sidebar__hint">Configureaza filtrele din Shopify Search & Discovery.</p>
+            </div>
+          </details>
+        {% endif %}
       </aside>
 
       <div>
@@ -78,6 +103,10 @@
 </section>
 
 <style>
+  .search-page {
+    margin-top: 3cm;
+  }
+
   .search-no-results {
     text-align: center;
     padding: 60px 20px;
@@ -88,5 +117,37 @@
     color: #666;
     margin: 10px 0;
   }
+
+  .facet-link {
+    display: block;
+    padding: 8px 0;
+    color: #1f1f25;
+    text-decoration: none;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .facet-link:hover {
+    text-decoration: underline;
+  }
+
+  .facet-link.is-active {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .facet-link span {
+    float: right;
+    color: #999;
+  }
+
+  .facet-price {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 12px;
+  }
 </style>
+
 
