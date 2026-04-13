@@ -988,6 +988,8 @@ textarea {
   align-items: baseline;
   gap: 8px;
   margin-bottom: 16px;
+  transform-origin: center;
+  animation: heroPromoPricePopup 2.2s ease-in-out infinite;
 }
 
 .hero-promo__highlight {
@@ -1003,6 +1005,25 @@ textarea {
   font-family: var(--font-heading);
   font-size: clamp(1.3rem, 3.5vw, 1.9rem);
   font-weight: 900;
+}
+
+@keyframes heroPromoPricePopup {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.12);
+  }
+  65% {
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-promo__price-line {
+    animation: none;
+  }
 }
 
 .hero-promo__text {
