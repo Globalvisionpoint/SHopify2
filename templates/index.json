@@ -25,6 +25,66 @@
     },
     "categories": {
       "type": "category-grid",
+      "blocks": {
+        "category_8H4epe": {
+          "type": "category",
+          "settings": {
+            "title": "Categorie",
+            "link": ""
+          }
+        },
+        "category_i6nxJK": {
+          "type": "category",
+          "settings": {
+            "title": "Categorie",
+            "link": ""
+          }
+        },
+        "category_KJiYCy": {
+          "type": "category",
+          "settings": {
+            "title": "Categorie",
+            "link": ""
+          }
+        },
+        "category_9VTDTg": {
+          "type": "category",
+          "settings": {
+            "title": "Categorie",
+            "link": ""
+          }
+        },
+        "category_fEiQ9y": {
+          "type": "category",
+          "settings": {
+            "title": "Categorie",
+            "link": ""
+          }
+        },
+        "category_XyYtqn": {
+          "type": "category",
+          "settings": {
+            "title": "Categorie",
+            "link": ""
+          }
+        },
+        "category_46TEJQ": {
+          "type": "category",
+          "settings": {
+            "title": "Categorie",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_8H4epe",
+        "category_i6nxJK",
+        "category_KJiYCy",
+        "category_9VTDTg",
+        "category_fEiQ9y",
+        "category_XyYtqn",
+        "category_46TEJQ"
+      ],
       "settings": {
         "heading": "Categorii"
       }
