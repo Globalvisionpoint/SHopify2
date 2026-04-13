@@ -231,7 +231,7 @@ textarea {
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: auto auto minmax(320px, 1fr) auto auto;
+  grid-template-columns: auto auto minmax(380px, 1fr) auto auto;
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
