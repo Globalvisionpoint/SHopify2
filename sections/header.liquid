@@ -15,16 +15,9 @@
       {% render 'icon', name: 'chevron-down' %}
     </button>
 
-    <nav class="header__links" aria-label="Navigatie principala">
-      {% if section.settings.menu != blank %}
-        {% for link in section.settings.menu.links limit: 6 %}
-          <a href="{{ link.url }}" class="header__link">{{ link.title }}</a>
-        {% endfor %}
-      {% endif %}
-      {% if section.settings.sale_link_label != blank and section.settings.sale_link != blank %}
-        <a href="{{ section.settings.sale_link }}" class="header__link header__link--accent">{{ section.settings.sale_link_label }}</a>
-      {% endif %}
-    </nav>
+    {% if section.settings.sale_link_label != blank and section.settings.sale_link != blank %}
+      <a href="{{ section.settings.sale_link }}" class="header__sale-link">{{ section.settings.sale_link_label }}</a>
+    {% endif %}
 
     <form action="{{ routes.search_url }}" method="get" role="search" class="header__search">
       <input type="hidden" name="type" value="product">
@@ -46,6 +39,9 @@
       <a class="header__action" href="{{ routes.account_url }}" aria-label="Cont">
         {% render 'icon', name: 'account' %}
       </a>
+      <a class="header__action header__action--wishlist" href="/pages/wishlist" aria-label="Favorite">
+        {% render 'icon', name: 'heart' %}
+      </a>
       <a class="header__action" href="{{ routes.cart_url }}" aria-label="Cos">
         {% render 'icon', name: 'cart' %}
         <span class="header__cart-count" data-cart-count>{{ cart.item_count }}</span>
@@ -53,77 +49,380 @@
     </div>
   </div>
 
+  {%- comment -%} ===== DESKTOP MEGA MENU ===== {%- endcomment -%}
   <div id="catalog-menu" class="mega-menu" data-mega-menu hidden>
-    <div class="page-width mega-menu__shell {% unless section.settings.menu != blank and section.settings.menu.links.size > 0 %}mega-menu__shell--single{% endunless %}">
-      {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
-        <aside class="mega-menu__sidebar" aria-label="Categorii meniu">
-          {% for link in section.settings.menu.links %}
-            <button
-              type="button"
-              class="mega-menu__category {% if forloop.first %}is-active{% endif %}"
-              data-mega-trigger="{{ forloop.index0 }}"
-              aria-controls="mega-panel-{{ forloop.index0 }}"
-              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-            >
-              <span>{{ link.title }}</span>
-              <span class="mega-menu__category-arrow" aria-hidden="true">></span>
-            </button>
-          {% endfor %}
-        </aside>
+    <div class="mega-menu__shell">
 
-        <div class="mega-menu__content">
-          {% for link in section.settings.menu.links %}
-            <div id="mega-panel-{{ forloop.index0 }}" class="mega-menu__panel {% if forloop.first %}is-active{% endif %}" data-mega-panel="{{ forloop.index0 }}">
-              {% if link.links.size > 0 %}
-                <div class="mega-menu__columns">
-                  {% for child in link.links limit: 5 %}
-                    <section class="mega-menu__column">
-                      <a class="mega-menu__column-title" href="{{ child.url }}">{{ child.title }}</a>
+      {%- comment -%} --- LEFT SIDEBAR: categorii principale --- {%- endcomment -%}
+      <aside class="mega-menu__sidebar">
 
-                      {% if child.links.size > 0 %}
-                        <ul class="mega-menu__list" role="list">
-                          {% for grandchild in child.links limit: 8 %}
-                            <li>
-                              <a href="{{ grandchild.url }}" class="mega-menu__item-link">{{ grandchild.title }}</a>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                      {% else %}
-                        <ul class="mega-menu__list" role="list">
-                          <li>
-                            <a href="{{ child.url }}" class="mega-menu__item-link">Vezi produsele</a>
-                          </li>
-                        </ul>
-                      {% endif %}
+        <button type="button" class="mega-menu__cat is-active" data-mega-trigger="0">
+          <span class="mega-menu__cat-icon">🏠</span>
+          <span>Casa, Bucatarie &amp; Menaj</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
 
-                      <a class="mega-menu__all-link" href="{{ child.url }}">Vezi tot</a>
-                    </section>
-                  {% endfor %}
-                </div>
-              {% else %}
-                <div class="mega-menu__empty">
-                  <h3>{{ link.title }}</h3>
-                  <p>Configureaza submeniuri in navigatia Shopify pentru a afisa coloane ca in exemplu.</p>
-                  <a href="{{ link.url }}" class="button button--primary">Vezi categoria</a>
-                </div>
-              {% endif %}
-            </div>
-          {% endfor %}
-        </div>
-      {% else %}
-        <div class="mega-menu__content mega-menu__content--full">
-          <div class="mega-menu__empty">
-            <h3>Meniul nu este configurat</h3>
-            <p>Selecteaza un meniu in sectiunea Header din Theme Editor, apoi adauga submeniuri pentru layout-ul de mega-menu.</p>
-            <a href="{{ routes.all_products_collection_url }}" class="button button--primary">Vezi toate produsele</a>
+        <button type="button" class="mega-menu__cat" data-mega-trigger="1">
+          <span class="mega-menu__cat-icon">🌿</span>
+          <span>Gradina &amp; Bricolaj</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
+
+        <button type="button" class="mega-menu__cat" data-mega-trigger="2">
+          <span class="mega-menu__cat-icon">👗</span>
+          <span>Fashion &amp; Incaltaminte</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
+
+        <button type="button" class="mega-menu__cat" data-mega-trigger="3">
+          <span class="mega-menu__cat-icon">🧸</span>
+          <span>Jucarii, Copii &amp; Bebelusi</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
+
+        <button type="button" class="mega-menu__cat" data-mega-trigger="4">
+          <span class="mega-menu__cat-icon">🚗</span>
+          <span>Auto &amp; Moto</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
+
+        <button type="button" class="mega-menu__cat" data-mega-trigger="5">
+          <span class="mega-menu__cat-icon">🐾</span>
+          <span>Animale de companie</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
+
+        <button type="button" class="mega-menu__cat" data-mega-trigger="6">
+          <span class="mega-menu__cat-icon">🎁</span>
+          <span>Cadouri &amp; Mercerie</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
+
+        <button type="button" class="mega-menu__cat" data-mega-trigger="7">
+          <span class="mega-menu__cat-icon">⌚</span>
+          <span>Ceasuri</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
+
+        <button type="button" class="mega-menu__cat" data-mega-trigger="8">
+          <span class="mega-menu__cat-icon">🎄</span>
+          <span>Craciun</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
+
+        <button type="button" class="mega-menu__cat" data-mega-trigger="9">
+          <span class="mega-menu__cat-icon">📄</span>
+          <span>Alte pagini</span>
+          <span class="mega-menu__cat-arrow">›</span>
+        </button>
+
+      </aside>
+
+      {%- comment -%} --- RIGHT CONTENT: subcategorii per categorie --- {%- endcomment -%}
+      <div class="mega-menu__content">
+
+        {%- comment -%} Panel 0: Casa, Bucatarie & Menaj {%- endcomment -%}
+        <div class="mega-menu__panel is-active" data-mega-panel="0">
+          <div class="mega-menu__columns">
+
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Bucatarie</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_0_0_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Accesorii pentru gatit</a></li>
+                <li><a href="{{ section.settings.link_0_0_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Cutite si accesorii</a></li>
+                <li><a href="{{ section.settings.link_0_0_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Articole de copt</a></li>
+                <li><a href="{{ section.settings.link_0_0_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ustensile de bucatarie</a></li>
+                <li><a href="{{ section.settings.link_0_0_4 | default: routes.all_products_collection_url }}" class="mega-menu__link">Cani si pahare</a></li>
+                <li><a href="{{ section.settings.link_0_0_5 | default: routes.all_products_collection_url }}" class="mega-menu__link">Organizatoare bucatarie</a></li>
+                <li><a href="{{ section.settings.link_0_0_6 | default: routes.all_products_collection_url }}" class="mega-menu__link">Articole de masa</a></li>
+              </ul>
+              <a href="{{ section.settings.link_0_0_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Electrocasnice</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_0_1_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Aparate de cafea</a></li>
+                <li><a href="{{ section.settings.link_0_1_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Aspiratoare</a></li>
+                <li><a href="{{ section.settings.link_0_1_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Blendere si Mixere</a></li>
+                <li><a href="{{ section.settings.link_0_1_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Fiare de calcat</a></li>
+                <li><a href="{{ section.settings.link_0_1_4 | default: routes.all_products_collection_url }}" class="mega-menu__link">Gratare electrice</a></li>
+                <li><a href="{{ section.settings.link_0_1_5 | default: routes.all_products_collection_url }}" class="mega-menu__link">Cantare de bucatarie</a></li>
+              </ul>
+              <a href="{{ section.settings.link_0_1_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Menaj &amp; Curatenie</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_0_2_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Articole de curatenie</a></li>
+                <li><a href="{{ section.settings.link_0_2_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Detergenti</a></li>
+                <li><a href="{{ section.settings.link_0_2_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Saci menaj</a></li>
+                <li><a href="{{ section.settings.link_0_2_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Role si rezerve</a></li>
+                <li><a href="{{ section.settings.link_0_2_4 | default: routes.all_products_collection_url }}" class="mega-menu__link">Lavete si bureti</a></li>
+                <li><a href="{{ section.settings.link_0_2_5 | default: routes.all_products_collection_url }}" class="mega-menu__link">Articole unica folosinta</a></li>
+              </ul>
+              <a href="{{ section.settings.link_0_2_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Organizare casa</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_0_3_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Cutii si cosuri</a></li>
+                <li><a href="{{ section.settings.link_0_3_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Organizare sertare</a></li>
+                <li><a href="{{ section.settings.link_0_3_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Umbrerase</a></li>
+                <li><a href="{{ section.settings.link_0_3_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Huse depozitare</a></li>
+                <li><a href="{{ section.settings.link_0_3_4 | default: routes.all_products_collection_url }}" class="mega-menu__link">Saci de vidat</a></li>
+                <li><a href="{{ section.settings.link_0_3_5 | default: routes.all_products_collection_url }}" class="mega-menu__link">Mobilier casa</a></li>
+              </ul>
+              <a href="{{ section.settings.link_0_3_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+
           </div>
         </div>
-      {% endif %}
+
+        {%- comment -%} Panel 1: Gradina & Bricolaj {%- endcomment -%}
+        <div class="mega-menu__panel" data-mega-panel="1">
+          <div class="mega-menu__columns">
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Gradina</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_1_0_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Unelte gradina</a></li>
+                <li><a href="{{ section.settings.link_1_0_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ghivece si jardiniere</a></li>
+                <li><a href="{{ section.settings.link_1_0_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Sisteme irigare</a></li>
+                <li><a href="{{ section.settings.link_1_0_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Mobilier gradina</a></li>
+              </ul>
+              <a href="{{ section.settings.link_1_0_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Bricolaj</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_1_1_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Scule manuale</a></li>
+                <li><a href="{{ section.settings.link_1_1_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Scule electrice</a></li>
+                <li><a href="{{ section.settings.link_1_1_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Vopsele si lacuri</a></li>
+                <li><a href="{{ section.settings.link_1_1_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Fixatori si adezivi</a></li>
+              </ul>
+              <a href="{{ section.settings.link_1_1_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+          </div>
+        </div>
+
+        {%- comment -%} Panel 2: Fashion & Incaltaminte {%- endcomment -%}
+        <div class="mega-menu__panel" data-mega-panel="2">
+          <div class="mega-menu__columns">
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Imbracaminte</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_2_0_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Tricouri si bluze</a></li>
+                <li><a href="{{ section.settings.link_2_0_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Pantaloni si jeans</a></li>
+                <li><a href="{{ section.settings.link_2_0_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Rochii si fuste</a></li>
+                <li><a href="{{ section.settings.link_2_0_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Geci si jachete</a></li>
+              </ul>
+              <a href="{{ section.settings.link_2_0_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Incaltaminte</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_2_1_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Pantofi dama</a></li>
+                <li><a href="{{ section.settings.link_2_1_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Pantofi barbati</a></li>
+                <li><a href="{{ section.settings.link_2_1_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Adidasi</a></li>
+                <li><a href="{{ section.settings.link_2_1_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Cizme si ghete</a></li>
+              </ul>
+              <a href="{{ section.settings.link_2_1_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Accesorii fashion</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_2_2_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Genti si posete</a></li>
+                <li><a href="{{ section.settings.link_2_2_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Curele si portofele</a></li>
+                <li><a href="{{ section.settings.link_2_2_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Esarfe si fesuri</a></li>
+              </ul>
+              <a href="{{ section.settings.link_2_2_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+          </div>
+        </div>
+
+        {%- comment -%} Panel 3: Jucarii, Copii & Bebelusi {%- endcomment -%}
+        <div class="mega-menu__panel" data-mega-panel="3">
+          <div class="mega-menu__columns">
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Jucarii</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_3_0_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Jucarii educative</a></li>
+                <li><a href="{{ section.settings.link_3_0_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Jucarii de plus</a></li>
+                <li><a href="{{ section.settings.link_3_0_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Lego si constructii</a></li>
+                <li><a href="{{ section.settings.link_3_0_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Jocuri de societate</a></li>
+              </ul>
+              <a href="{{ section.settings.link_3_0_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Bebelusi</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_3_1_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Carucioare si scaune</a></li>
+                <li><a href="{{ section.settings.link_3_1_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Hainute bebelusi</a></li>
+                <li><a href="{{ section.settings.link_3_1_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ingrijire si igiena</a></li>
+                <li><a href="{{ section.settings.link_3_1_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Jucarii bebelusi</a></li>
+              </ul>
+              <a href="{{ section.settings.link_3_1_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+          </div>
+        </div>
+
+        {%- comment -%} Panel 4: Auto & Moto {%- endcomment -%}
+        <div class="mega-menu__panel" data-mega-panel="4">
+          <div class="mega-menu__columns">
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Auto</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_4_0_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Accesorii auto</a></li>
+                <li><a href="{{ section.settings.link_4_0_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Camera auto si GPS</a></li>
+                <li><a href="{{ section.settings.link_4_0_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ingrijire auto</a></li>
+                <li><a href="{{ section.settings.link_4_0_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Anvelope si jante</a></li>
+              </ul>
+              <a href="{{ section.settings.link_4_0_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Moto</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_4_1_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Echipament moto</a></li>
+                <li><a href="{{ section.settings.link_4_1_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Accesorii moto</a></li>
+                <li><a href="{{ section.settings.link_4_1_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Piese moto</a></li>
+              </ul>
+              <a href="{{ section.settings.link_4_1_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+          </div>
+        </div>
+
+        {%- comment -%} Panel 5: Animale de companie {%- endcomment -%}
+        <div class="mega-menu__panel" data-mega-panel="5">
+          <div class="mega-menu__columns">
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Caini</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_5_0_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Hrana caini</a></li>
+                <li><a href="{{ section.settings.link_5_0_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Accesorii caini</a></li>
+                <li><a href="{{ section.settings.link_5_0_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Jucarii caini</a></li>
+              </ul>
+              <a href="{{ section.settings.link_5_0_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Pisici</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_5_1_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Hrana pisici</a></li>
+                <li><a href="{{ section.settings.link_5_1_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Nisip si litiera</a></li>
+                <li><a href="{{ section.settings.link_5_1_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Accesorii pisici</a></li>
+              </ul>
+              <a href="{{ section.settings.link_5_1_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Alte animale</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_5_2_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Pasari</a></li>
+                <li><a href="{{ section.settings.link_5_2_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Pesti si acvarii</a></li>
+                <li><a href="{{ section.settings.link_5_2_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Rozatoare</a></li>
+              </ul>
+              <a href="{{ section.settings.link_5_2_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Zobacz tot</a>
+            </section>
+          </div>
+        </div>
+
+        {%- comment -%} Panel 6: Cadouri & Mercerie {%- endcomment -%}
+        <div class="mega-menu__panel" data-mega-panel="6">
+          <div class="mega-menu__columns">
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Cadouri</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_6_0_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Seturi cadou</a></li>
+                <li><a href="{{ section.settings.link_6_0_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Cutii si ambalaje</a></li>
+                <li><a href="{{ section.settings.link_6_0_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Felicitari</a></li>
+              </ul>
+              <a href="{{ section.settings.link_6_0_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Mercerie</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_6_1_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ata si ace</a></li>
+                <li><a href="{{ section.settings.link_6_1_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Fermoar si nasturi</a></li>
+                <li><a href="{{ section.settings.link_6_1_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Panglici si dantele</a></li>
+                <li><a href="{{ section.settings.link_6_1_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Fire de tricotat</a></li>
+              </ul>
+              <a href="{{ section.settings.link_6_1_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+          </div>
+        </div>
+
+        {%- comment -%} Panel 7: Ceasuri {%- endcomment -%}
+        <div class="mega-menu__panel" data-mega-panel="7">
+          <div class="mega-menu__columns">
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Ceasuri dama</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_7_0_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ceasuri elegante</a></li>
+                <li><a href="{{ section.settings.link_7_0_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ceasuri sport</a></li>
+                <li><a href="{{ section.settings.link_7_0_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Smartwatch dama</a></li>
+              </ul>
+              <a href="{{ section.settings.link_7_0_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Ceasuri barbati</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_7_1_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ceasuri clasice</a></li>
+                <li><a href="{{ section.settings.link_7_1_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ceasuri sport</a></li>
+                <li><a href="{{ section.settings.link_7_1_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Smartwatch barbati</a></li>
+              </ul>
+              <a href="{{ section.settings.link_7_1_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+          </div>
+        </div>
+
+        {%- comment -%} Panel 8: Craciun {%- endcomment -%}
+        <div class="mega-menu__panel" data-mega-panel="8">
+          <div class="mega-menu__columns">
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Decoratiuni Craciun</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_8_0_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Globuri si ornamente</a></li>
+                <li><a href="{{ section.settings.link_8_0_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Luminite si ghirlande</a></li>
+                <li><a href="{{ section.settings.link_8_0_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Figurine decorative</a></li>
+                <li><a href="{{ section.settings.link_8_0_3 | default: routes.all_products_collection_url }}" class="mega-menu__link">Brazi artificiali</a></li>
+              </ul>
+              <a href="{{ section.settings.link_8_0_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Cadouri Craciun</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_8_1_0 | default: routes.all_products_collection_url }}" class="mega-menu__link">Seturi cadou</a></li>
+                <li><a href="{{ section.settings.link_8_1_1 | default: routes.all_products_collection_url }}" class="mega-menu__link">Jucarii Craciun</a></li>
+                <li><a href="{{ section.settings.link_8_1_2 | default: routes.all_products_collection_url }}" class="mega-menu__link">Ciorapi de Craciun</a></li>
+              </ul>
+              <a href="{{ section.settings.link_8_1_all | default: routes.all_products_collection_url }}" class="mega-menu__see-all">→ Vezi tot</a>
+            </section>
+          </div>
+        </div>
+
+        {%- comment -%} Panel 9: Alte pagini {%- endcomment -%}
+        <div class="mega-menu__panel" data-mega-panel="9">
+          <div class="mega-menu__columns">
+            <section class="mega-menu__column">
+              <span class="mega-menu__col-title">Informatii</span>
+              <ul class="mega-menu__list">
+                <li><a href="{{ section.settings.link_9_0_0 | default: '/pages/despre-noi' }}" class="mega-menu__link">Despre noi</a></li>
+                <li><a href="{{ section.settings.link_9_0_1 | default: '/pages/contact' }}" class="mega-menu__link">Contact</a></li>
+                <li><a href="{{ section.settings.link_9_0_2 | default: '/pages/termeni' }}" class="mega-menu__link">Termeni si conditii</a></li>
+                <li><a href="{{ section.settings.link_9_0_3 | default: '/pages/retur' }}" class="mega-menu__link">Politica de retur</a></li>
+                <li><a href="{{ section.settings.link_9_0_4 | default: '/pages/livrare' }}" class="mega-menu__link">Livrare si plata</a></li>
+              </ul>
+            </section>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
   <button class="mega-menu-backdrop" data-mega-backdrop hidden aria-label="Inchide meniul"></button>
 
+  {%- comment -%} ===== MOBILE MENU ===== {%- endcomment -%}
   <div id="mobile-menu" class="mobile-menu" data-mobile-menu hidden>
     <div class="mobile-menu__panel">
       <div class="mobile-menu__top">
@@ -133,13 +432,18 @@
         </button>
       </div>
 
-      {% if section.settings.menu != blank %}
-        <nav class="mobile-menu__nav" aria-label="Navigatie mobila">
-          {% for link in section.settings.menu.links %}
-            <a href="{{ link.url }}" class="mobile-menu__link">{{ link.title }}</a>
-          {% endfor %}
-        </nav>
-      {% endif %}
+      <nav class="mobile-menu__nav" aria-label="Navigatie mobila">
+        <a href="{{ section.settings.link_0_0_all | default: routes.all_products_collection_url }}" class="mobile-menu__link">🏠 Casa, Bucatarie &amp; Menaj</a>
+        <a href="{{ section.settings.link_1_0_all | default: routes.all_products_collection_url }}" class="mobile-menu__link">🌿 Gradina &amp; Bricolaj</a>
+        <a href="{{ section.settings.link_2_0_all | default: routes.all_products_collection_url }}" class="mobile-menu__link">👗 Fashion &amp; Incaltaminte</a>
+        <a href="{{ section.settings.link_3_0_all | default: routes.all_products_collection_url }}" class="mobile-menu__link">🧸 Jucarii, Copii &amp; Bebelusi</a>
+        <a href="{{ section.settings.link_4_0_all | default: routes.all_products_collection_url }}" class="mobile-menu__link">🚗 Auto &amp; Moto</a>
+        <a href="{{ section.settings.link_5_0_all | default: routes.all_products_collection_url }}" class="mobile-menu__link">🐾 Animale de companie</a>
+        <a href="{{ section.settings.link_6_0_all | default: routes.all_products_collection_url }}" class="mobile-menu__link">🎁 Cadouri &amp; Mercerie</a>
+        <a href="{{ section.settings.link_7_0_all | default: routes.all_products_collection_url }}" class="mobile-menu__link">⌚ Ceasuri</a>
+        <a href="{{ section.settings.link_8_0_all | default: routes.all_products_collection_url }}" class="mobile-menu__link">🎄 Craciun</a>
+        <a href="{{ section.settings.link_9_0_0 | default: '/pages/despre-noi' }}" class="mobile-menu__link">📄 Alte pagini</a>
+      </nav>
 
       {% if section.settings.sale_link_label != blank and section.settings.sale_link != blank %}
         <a href="{{ section.settings.sale_link }}" class="mobile-menu__sale">{{ section.settings.sale_link_label }}</a>
@@ -153,14 +457,13 @@
   "name": "Header",
   "settings": [
     {
+      "type": "header",
+      "content": "Setari generale"
+    },
+    {
       "type": "image_picker",
       "id": "logo",
       "label": "Logo"
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Meniu principal"
     },
     {
       "type": "text",
@@ -184,7 +487,178 @@
       "id": "search_placeholder",
       "label": "Placeholder cautare",
       "default": "Incepe o cautare..."
-    }
+    },
+    {
+      "type": "header",
+      "content": "═══ CASA, BUCATARIE & MENAJ ═══"
+    },
+    {
+      "type": "header",
+      "content": "Coloana: Bucatarie"
+    },
+    { "type": "url", "id": "link_0_0_0", "label": "Accesorii pentru gatit" },
+    { "type": "url", "id": "link_0_0_1", "label": "Cutite si accesorii" },
+    { "type": "url", "id": "link_0_0_2", "label": "Articole de copt" },
+    { "type": "url", "id": "link_0_0_3", "label": "Ustensile de bucatarie" },
+    { "type": "url", "id": "link_0_0_4", "label": "Cani si pahare" },
+    { "type": "url", "id": "link_0_0_5", "label": "Organizatoare bucatarie" },
+    { "type": "url", "id": "link_0_0_6", "label": "Articole de masa" },
+    { "type": "url", "id": "link_0_0_all", "label": "→ Bucatarie - VEzi tot" },
+    {
+      "type": "header",
+      "content": "Coloana: Electrocasnice"
+    },
+    { "type": "url", "id": "link_0_1_0", "label": "Aparate de cafea" },
+    { "type": "url", "id": "link_0_1_1", "label": "Aspiratoare" },
+    { "type": "url", "id": "link_0_1_2", "label": "Blendere si Mixere" },
+    { "type": "url", "id": "link_0_1_3", "label": "Fiare de calcat" },
+    { "type": "url", "id": "link_0_1_4", "label": "Gratare electrice" },
+    { "type": "url", "id": "link_0_1_5", "label": "Cantare de bucatarie" },
+    { "type": "url", "id": "link_0_1_all", "label": "→ Electrocasnice - VEzi tot" },
+    {
+      "type": "header",
+      "content": "Coloana: Menaj & Curatenie"
+    },
+    { "type": "url", "id": "link_0_2_0", "label": "Articole de curatenie" },
+    { "type": "url", "id": "link_0_2_1", "label": "Detergenti" },
+    { "type": "url", "id": "link_0_2_2", "label": "Saci menaj" },
+    { "type": "url", "id": "link_0_2_3", "label": "Role si rezerve" },
+    { "type": "url", "id": "link_0_2_4", "label": "Lavete si bureti" },
+    { "type": "url", "id": "link_0_2_5", "label": "Articole unica folosinta" },
+    { "type": "url", "id": "link_0_2_all", "label": "→ Menaj - VEzi tot" },
+    {
+      "type": "header",
+      "content": "Coloana: Organizare casa"
+    },
+    { "type": "url", "id": "link_0_3_0", "label": "Cutii si cosuri" },
+    { "type": "url", "id": "link_0_3_1", "label": "Organizare sertare" },
+    { "type": "url", "id": "link_0_3_2", "label": "Umbrerase" },
+    { "type": "url", "id": "link_0_3_3", "label": "Huse depozitare" },
+    { "type": "url", "id": "link_0_3_4", "label": "Saci de vidat" },
+    { "type": "url", "id": "link_0_3_5", "label": "Mobilier casa" },
+    { "type": "url", "id": "link_0_3_all", "label": "→ Organizare - VEzi tot" },
+    {
+      "type": "header",
+      "content": "═══ GRADINA & BRICOLAJ ═══"
+    },
+    { "type": "url", "id": "link_1_0_0", "label": "Unelte gradina" },
+    { "type": "url", "id": "link_1_0_1", "label": "Ghivece si jardiniere" },
+    { "type": "url", "id": "link_1_0_2", "label": "Sisteme irigare" },
+    { "type": "url", "id": "link_1_0_3", "label": "Mobilier gradina" },
+    { "type": "url", "id": "link_1_0_all", "label": "→ Gradina - VEzi tot" },
+    { "type": "url", "id": "link_1_1_0", "label": "Scule manuale" },
+    { "type": "url", "id": "link_1_1_1", "label": "Scule electrice" },
+    { "type": "url", "id": "link_1_1_2", "label": "Vopsele si lacuri" },
+    { "type": "url", "id": "link_1_1_3", "label": "Fixatori si adezivi" },
+    { "type": "url", "id": "link_1_1_all", "label": "→ Bricolaj - VEzi tot" },
+    {
+      "type": "header",
+      "content": "═══ FASHION & INCALTAMINTE ═══"
+    },
+    { "type": "url", "id": "link_2_0_0", "label": "Tricouri si bluze" },
+    { "type": "url", "id": "link_2_0_1", "label": "Pantaloni si jeans" },
+    { "type": "url", "id": "link_2_0_2", "label": "Rochii si fuste" },
+    { "type": "url", "id": "link_2_0_3", "label": "Geci si jachete" },
+    { "type": "url", "id": "link_2_0_all", "label": "→ Imbracaminte - VEzi tot" },
+    { "type": "url", "id": "link_2_1_0", "label": "Pantofi dama" },
+    { "type": "url", "id": "link_2_1_1", "label": "Pantofi barbati" },
+    { "type": "url", "id": "link_2_1_2", "label": "Adidasi" },
+    { "type": "url", "id": "link_2_1_3", "label": "Cizme si ghete" },
+    { "type": "url", "id": "link_2_1_all", "label": "→ Incaltaminte - VEzi tot" },
+    { "type": "url", "id": "link_2_2_0", "label": "Genti si posete" },
+    { "type": "url", "id": "link_2_2_1", "label": "Curele si portofele" },
+    { "type": "url", "id": "link_2_2_2", "label": "Esarfe si fesuri" },
+    { "type": "url", "id": "link_2_2_all", "label": "→ Accesorii fashion - VEzi tot" },
+    {
+      "type": "header",
+      "content": "═══ JUCARII, COPII & BEBELUSI ═══"
+    },
+    { "type": "url", "id": "link_3_0_0", "label": "Jucarii educative" },
+    { "type": "url", "id": "link_3_0_1", "label": "Jucarii de plus" },
+    { "type": "url", "id": "link_3_0_2", "label": "Lego si constructii" },
+    { "type": "url", "id": "link_3_0_3", "label": "Jocuri de societate" },
+    { "type": "url", "id": "link_3_0_all", "label": "→ Jucarii - VEzi tot" },
+    { "type": "url", "id": "link_3_1_0", "label": "Carucioare si scaune" },
+    { "type": "url", "id": "link_3_1_1", "label": "Hainute bebelusi" },
+    { "type": "url", "id": "link_3_1_2", "label": "Ingrijire si igiena" },
+    { "type": "url", "id": "link_3_1_3", "label": "Jucarii bebelusi" },
+    { "type": "url", "id": "link_3_1_all", "label": "→ Bebelusi - VEzi tot" },
+    {
+      "type": "header",
+      "content": "═══ AUTO & MOTO ═══"
+    },
+    { "type": "url", "id": "link_4_0_0", "label": "Accesorii auto" },
+    { "type": "url", "id": "link_4_0_1", "label": "Camera auto si GPS" },
+    { "type": "url", "id": "link_4_0_2", "label": "Ingrijire auto" },
+    { "type": "url", "id": "link_4_0_3", "label": "Anvelope si jante" },
+    { "type": "url", "id": "link_4_0_all", "label": "→ Auto - VEzi tot" },
+    { "type": "url", "id": "link_4_1_0", "label": "Echipament moto" },
+    { "type": "url", "id": "link_4_1_1", "label": "Accesorii moto" },
+    { "type": "url", "id": "link_4_1_2", "label": "Piese moto" },
+    { "type": "url", "id": "link_4_1_all", "label": "→ Moto - VEzi tot" },
+    {
+      "type": "header",
+      "content": "═══ ANIMALE DE COMPANIE ═══"
+    },
+    { "type": "url", "id": "link_5_0_0", "label": "Hrana caini" },
+    { "type": "url", "id": "link_5_0_1", "label": "Accesorii caini" },
+    { "type": "url", "id": "link_5_0_2", "label": "Jucarii caini" },
+    { "type": "url", "id": "link_5_0_all", "label": "→ Caini - VEzi tot" },
+    { "type": "url", "id": "link_5_1_0", "label": "Hrana pisici" },
+    { "type": "url", "id": "link_5_1_1", "label": "Nisip si litiera" },
+    { "type": "url", "id": "link_5_1_2", "label": "Accesorii pisici" },
+    { "type": "url", "id": "link_5_1_all", "label": "→ Pisici - VEzi tot" },
+    { "type": "url", "id": "link_5_2_0", "label": "Pasari" },
+    { "type": "url", "id": "link_5_2_1", "label": "Pesti si acvarii" },
+    { "type": "url", "id": "link_5_2_2", "label": "Rozatoare" },
+    { "type": "url", "id": "link_5_2_all", "label": "→ Alte animale - VEzi tot" },
+    {
+      "type": "header",
+      "content": "═══ CADOURI & MERCERIE ═══"
+    },
+    { "type": "url", "id": "link_6_0_0", "label": "Seturi cadou" },
+    { "type": "url", "id": "link_6_0_1", "label": "Cutii si ambalaje" },
+    { "type": "url", "id": "link_6_0_2", "label": "Felicitari" },
+    { "type": "url", "id": "link_6_0_all", "label": "→ Cadouri - VEzi tot" },
+    { "type": "url", "id": "link_6_1_0", "label": "Ata si ace" },
+    { "type": "url", "id": "link_6_1_1", "label": "Fermoar si nasturi" },
+    { "type": "url", "id": "link_6_1_2", "label": "Panglici si dantele" },
+    { "type": "url", "id": "link_6_1_3", "label": "Fire de tricotat" },
+    { "type": "url", "id": "link_6_1_all", "label": "→ Mercerie - VEzi tot" },
+    {
+      "type": "header",
+      "content": "═══ CEASURI ═══"
+    },
+    { "type": "url", "id": "link_7_0_0", "label": "Ceasuri elegante dama" },
+    { "type": "url", "id": "link_7_0_1", "label": "Ceasuri sport dama" },
+    { "type": "url", "id": "link_7_0_2", "label": "Smartwatch dama" },
+    { "type": "url", "id": "link_7_0_all", "label": "→ Ceasuri dama - VEzi tot" },
+    { "type": "url", "id": "link_7_1_0", "label": "Ceasuri clasice barbati" },
+    { "type": "url", "id": "link_7_1_1", "label": "Ceasuri sport barbati" },
+    { "type": "url", "id": "link_7_1_2", "label": "Smartwatch barbati" },
+    { "type": "url", "id": "link_7_1_all", "label": "→ Ceasuri barbati - VEzi tot" },
+    {
+      "type": "header",
+      "content": "═══ CRACIUN ═══"
+    },
+    { "type": "url", "id": "link_8_0_0", "label": "Globuri si ornamente" },
+    { "type": "url", "id": "link_8_0_1", "label": "Luminite si ghirlande" },
+    { "type": "url", "id": "link_8_0_2", "label": "Figurine decorative" },
+    { "type": "url", "id": "link_8_0_3", "label": "Brazi artificiali" },
+    { "type": "url", "id": "link_8_0_all", "label": "→ Decoratiuni Craciun - VEzi tot" },
+    { "type": "url", "id": "link_8_1_0", "label": "Seturi cadou Craciun" },
+    { "type": "url", "id": "link_8_1_1", "label": "Jucarii Craciun" },
+    { "type": "url", "id": "link_8_1_2", "label": "Ciorapi de Craciun" },
+    { "type": "url", "id": "link_8_1_all", "label": "→ Cadouri Craciun - VEzi tot" },
+    {
+      "type": "header",
+      "content": "═══ ALTE PAGINI ═══"
+    },
+    { "type": "url", "id": "link_9_0_0", "label": "Despre noi" },
+    { "type": "url", "id": "link_9_0_1", "label": "Contact" },
+    { "type": "url", "id": "link_9_0_2", "label": "Termeni si conditii" },
+    { "type": "url", "id": "link_9_0_3", "label": "Politica de retur" },
+    { "type": "url", "id": "link_9_0_4", "label": "Livrare si plata" }
   ]
 }
 {% endschema %}
