@@ -367,7 +367,12 @@ textarea {
   color: #000;
 }
 
-.header__search-input:focus,
+.header__search-input:focus {
+  outline: none;
+  border-color: rgb(255 255 255);
+  box-shadow: 0 0 0 4px rgba(237, 28, 36, 0.10);
+}
+
 .product-form__select:focus,
 .quantity-selector__input:focus,
 .cart-line__qty input:focus,
@@ -388,6 +393,33 @@ textarea {
   background: linear-gradient(135deg, var(--color-primary), #ff2c35);
   color: #fff;
   cursor: pointer;
+}
+
+.header__deals {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+}
+
+.header__deals-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.header__deals-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .header__actions {
