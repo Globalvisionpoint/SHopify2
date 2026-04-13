@@ -53,9 +53,9 @@
     </div>
   </div>
 
-  {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
-    <div id="catalog-menu" class="mega-menu" data-mega-menu hidden>
-      <div class="page-width mega-menu__shell">
+  <div id="catalog-menu" class="mega-menu" data-mega-menu hidden>
+    <div class="page-width mega-menu__shell {% unless section.settings.menu != blank and section.settings.menu.links.size > 0 %}mega-menu__shell--single{% endunless %}">
+      {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
         <aside class="mega-menu__sidebar" aria-label="Categorii meniu">
           {% for link in section.settings.menu.links %}
             <button
@@ -110,11 +110,19 @@
             </div>
           {% endfor %}
         </div>
-      </div>
+      {% else %}
+        <div class="mega-menu__content mega-menu__content--full">
+          <div class="mega-menu__empty">
+            <h3>Meniul nu este configurat</h3>
+            <p>Selecteaza un meniu in sectiunea Header din Theme Editor, apoi adauga submeniuri pentru layout-ul de mega-menu.</p>
+            <a href="{{ routes.all_products_collection_url }}" class="button button--primary">Vezi toate produsele</a>
+          </div>
+        </div>
+      {% endif %}
     </div>
+  </div>
 
-    <button class="mega-menu-backdrop" data-mega-backdrop hidden aria-label="Inchide meniul"></button>
-  {% endif %}
+  <button class="mega-menu-backdrop" data-mega-backdrop hidden aria-label="Inchide meniul"></button>
 
   <div id="mobile-menu" class="mobile-menu" data-mobile-menu hidden>
     <div class="mobile-menu__panel">
