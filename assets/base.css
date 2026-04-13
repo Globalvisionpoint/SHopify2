@@ -1875,18 +1875,16 @@ textarea {
 }
 
 .footer__watermark {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 8vw, 7.5rem);
+  font-size: clamp(1.5rem, 6vw, 3rem);
   font-weight: 800;
   line-height: 1;
   white-space: nowrap;
-  max-width: calc(100% - 40px);
+  width: 100%;
+  margin: 0 auto 10px;
   text-align: center;
-  color: rgba(237, 28, 36, 0.12);
+  color: rgba(237, 28, 36, 0.22);
   pointer-events: none;
 }
 

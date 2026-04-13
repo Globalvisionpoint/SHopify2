@@ -1,4 +1,5 @@
 <footer class="footer section-space">
+  <div class="footer__watermark">{{ shop.name }}</div>
   <div class="page-width footer__wrap">
     <div class="footer__brand">
       <a class="footer__logo" href="{{ routes.root_url }}">
@@ -50,8 +51,6 @@
         <a href="{{ settings.social_youtube_link }}" aria-label="YouTube">{% render 'icon', name: 'youtube' %}</a>
       {% endif %}
     </div>
-
-    <div class="footer__watermark">{{ shop.name }}</div>
   </div>
   <p class="footer__copyright">Copyright © {{ 'now' | date: '%Y' }} {{ shop.name }}. Toate drepturile rezervate.</p>
 </footer>
