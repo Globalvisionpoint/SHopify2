@@ -27,10 +27,7 @@
 
     <a href="{% if section.settings.deals_collection %}{{ section.settings.deals_collection.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="header__deals" aria-label="Reduceri">
       <span class="header__deals-icon">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M20.59 13.41 11 23l-9-9V3h11l9 9-1.41 1.41ZM4 13.17 11 20.17l7.17-7.17L12.17 7H4v6.17Z" fill="currentColor"></path>
-          <path d="M8.5 8.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm6.23 8.27 1.06-1.06-6.56-6.56-1.06 1.06 6.56 6.56Zm1.77-5.27a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="currentColor"></path>
-        </svg>
+        <span class="header__deals-badge" aria-hidden="true"></span>
       </span>
       <span>Reduceri</span>
     </a>
