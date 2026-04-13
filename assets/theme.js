@@ -11,14 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const syncStickyOffset = () => {
     if (!header) return;
-    if (header.classList.contains('header--sticky-fixed')) {
-      body.style.paddingTop = `${header.offsetHeight + 6}px`;
-    } else {
-      body.style.paddingTop = '';
-    }
+    header.style.position = 'fixed';
+    header.style.top = '0';
+    header.style.left = '0';
+    header.style.right = '0';
+    header.style.zIndex = '999';
+    body.style.paddingTop = `${header.offsetHeight + 6}px`;
   };
 
   syncStickyOffset();
+
+  window.addEventListener('scroll', syncStickyOffset, { passive: true });
 
   const openMegaMenu = () => {
     if (!megaMenu || !megaBackdrop || !catalogToggle) return;
