@@ -3,7 +3,7 @@
     {% for block in section.blocks %}
       {% assign row_collection = block.settings.collection %}
       <div class="collection-rows__item" {{ block.shopify_attributes }}
-        {% if block.settings.background_image != blank %}style="background-image: url('{{ block.settings.background_image | image_url: width: 1920 }}');"{% endif %}>
+        {% if block.settings.background_image != blank %}style="background-image: url('{{ block.settings.background_image | image_url: width: 1920 }}'); background-position-y: {{ block.settings.background_position }}%;"{% endif %}>
         <div class="collection-rows__head">
           {% if row_collection != blank %}
             <a href="{{ row_collection.url }}" class="collection-rows__title-link">
@@ -106,6 +106,15 @@
           "type": "image_picker",
           "id": "background_image",
           "label": "Imagine fundal"
+        },
+        {
+          "type": "range",
+          "id": "background_position",
+          "label": "Pozitie imagine (sus=0, jos=100)",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 50
         }
       ]
     }

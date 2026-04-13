@@ -1082,6 +1082,10 @@ textarea {
 .promo-products {
   margin-bottom: 2cm;
   margin-top: 6cm;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
 .promo-products .rail-carousel {
