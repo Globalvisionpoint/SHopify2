@@ -9,7 +9,7 @@
       {% endif %}
     </a>
 
-    <button class="header__catalog-toggle" type="button" data-mobile-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
+    <button class="header__catalog-toggle" type="button" data-catalog-toggle aria-expanded="false" aria-controls="catalog-menu">
       {% render 'icon', name: 'menu' %}
       <span>{{ section.settings.catalog_label }}</span>
       {% render 'icon', name: 'chevron-down' %}
@@ -52,6 +52,69 @@
       </a>
     </div>
   </div>
+
+  {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
+    <div id="catalog-menu" class="mega-menu" data-mega-menu hidden>
+      <div class="page-width mega-menu__shell">
+        <aside class="mega-menu__sidebar" aria-label="Categorii meniu">
+          {% for link in section.settings.menu.links %}
+            <button
+              type="button"
+              class="mega-menu__category {% if forloop.first %}is-active{% endif %}"
+              data-mega-trigger="{{ forloop.index0 }}"
+              aria-controls="mega-panel-{{ forloop.index0 }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              <span>{{ link.title }}</span>
+              <span class="mega-menu__category-arrow" aria-hidden="true">></span>
+            </button>
+          {% endfor %}
+        </aside>
+
+        <div class="mega-menu__content">
+          {% for link in section.settings.menu.links %}
+            <div id="mega-panel-{{ forloop.index0 }}" class="mega-menu__panel {% if forloop.first %}is-active{% endif %}" data-mega-panel="{{ forloop.index0 }}">
+              {% if link.links.size > 0 %}
+                <div class="mega-menu__columns">
+                  {% for child in link.links limit: 5 %}
+                    <section class="mega-menu__column">
+                      <a class="mega-menu__column-title" href="{{ child.url }}">{{ child.title }}</a>
+
+                      {% if child.links.size > 0 %}
+                        <ul class="mega-menu__list" role="list">
+                          {% for grandchild in child.links limit: 8 %}
+                            <li>
+                              <a href="{{ grandchild.url }}" class="mega-menu__item-link">{{ grandchild.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% else %}
+                        <ul class="mega-menu__list" role="list">
+                          <li>
+                            <a href="{{ child.url }}" class="mega-menu__item-link">Vezi produsele</a>
+                          </li>
+                        </ul>
+                      {% endif %}
+
+                      <a class="mega-menu__all-link" href="{{ child.url }}">Vezi tot</a>
+                    </section>
+                  {% endfor %}
+                </div>
+              {% else %}
+                <div class="mega-menu__empty">
+                  <h3>{{ link.title }}</h3>
+                  <p>Configureaza submeniuri in navigatia Shopify pentru a afisa coloane ca in exemplu.</p>
+                  <a href="{{ link.url }}" class="button button--primary">Vezi categoria</a>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <button class="mega-menu-backdrop" data-mega-backdrop hidden aria-label="Inchide meniul"></button>
+  {% endif %}
 
   <div id="mobile-menu" class="mobile-menu" data-mobile-menu hidden>
     <div class="mobile-menu__panel">
