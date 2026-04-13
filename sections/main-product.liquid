@@ -80,13 +80,19 @@
               <button type="button" class="quantity-selector__button" data-quantity-plus aria-label="Creste cantitatea">+</button>
             </div>
 
-            <button type="submit" class="button button--primary button--wide" {% unless current_variant.available %}disabled{% endunless %}>
-              {% if current_variant.available %}
-                Adauga in cos
-              {% else %}
-                Indisponibil
-              {% endif %}
-            </button>
+            <div class="product-form__actions">
+              <button type="submit" class="button button--primary button--wide" {% unless current_variant.available %}disabled{% endunless %}>
+                {% if current_variant.available %}
+                  Adauga in cos
+                {% else %}
+                  Indisponibil
+                {% endif %}
+              </button>
+
+              <button type="submit" name="return_to" value="/checkout" class="button button--secondary button--wide product-form__buy-now" {% unless current_variant.available %}disabled{% endunless %}>
+                Cumpara acum
+              </button>
+            </div>
           </div>
         {% endform %}
 
