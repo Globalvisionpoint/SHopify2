@@ -32,10 +32,6 @@
       <span>Reduceri</span>
     </a>
 
-    {% if section.settings.sale_link_label != blank and section.settings.sale_link != blank %}
-      <a href="{{ section.settings.sale_link }}" class="header__sale-link">{{ section.settings.sale_link_label }}</a>
-    {% endif %}
-
     <form action="{{ routes.search_url }}" method="get" role="search" class="header__search">
       <input type="hidden" name="type" value="product">
       <label class="visually-hidden" for="Search-In-Modal">Cauta produse</label>
