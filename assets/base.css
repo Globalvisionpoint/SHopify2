@@ -2074,6 +2074,10 @@ textarea {
     display: none !important;
   }
 
+  .header__sale-link {
+    display: none !important;
+  }
+
   .header__deals {
     width: 0 !important;
     margin: 0 !important;
@@ -2253,6 +2257,10 @@ textarea {
     width: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
+  }
+
+  .header__sale-link {
+    display: none !important;
   }
 
   .category-grid__items,
