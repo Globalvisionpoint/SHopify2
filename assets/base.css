@@ -363,6 +363,10 @@ textarea {
   color: #000;
 }
 
+.header__search-input::placeholder {
+  color: #000;
+}
+
 .header__search-input:focus,
 .product-form__select:focus,
 .quantity-selector__input:focus,
