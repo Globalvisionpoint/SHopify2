@@ -17,7 +17,7 @@
           "logo": "shopify://shop_images/genereaza-logo-magain-online.png",
           "catalog_label": "Magazin",
           "sale_link_label": "Reduceri",
-          "sale_link": "",
+          "sale_link": "shopify://collections/jucarii",
           "search_placeholder": "Incepe o cautare...",
           "link_0_0_0": "",
           "link_0_0_1": "",
