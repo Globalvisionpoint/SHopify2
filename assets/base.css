@@ -2039,7 +2039,7 @@ textarea {
   }
 
   .header__search {
-    order: 0;
+    order: 3;
     margin-inline: 0;
     min-width: 0;
     width: auto;
@@ -2096,8 +2096,9 @@ textarea {
   }
 
   .header__actions {
+    order: 4;
     gap: 3px;
-    margin-left: auto;
+    margin-left: 0;
     flex: 0 0 auto;
   }
 
