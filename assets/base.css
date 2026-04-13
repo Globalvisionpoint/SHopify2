@@ -224,6 +224,8 @@ textarea {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .header__logo-mark,
@@ -244,6 +246,12 @@ textarea {
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1.1rem;
+}
+
+.footer__logo-text {
+  white-space: nowrap;
+  line-height: 1;
+  font-size: clamp(0.86rem, 1.8vw, 1.1rem);
 }
 
 .header__logo-image,
@@ -1729,9 +1737,13 @@ textarea {
     padding: 8px;
   }
 
-  .header__logo-text,
-  .footer__logo-text {
+  .header__logo-text {
     display: none;
+  }
+
+  .footer__logo-text {
+    display: inline;
+    white-space: nowrap;
   }
 
   .header__search {
