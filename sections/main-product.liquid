@@ -89,7 +89,7 @@
                 {% endif %}
               </button>
 
-              <button type="submit" name="return_to" value="/checkout" class="button button--secondary button--wide product-form__buy-now" {% unless current_variant.available %}disabled{% endunless %}>
+              <button type="submit" class="button button--secondary button--wide product-form__buy-now" data-buy-now {% unless current_variant.available %}disabled{% endunless %}>
                 Cumpara acum
               </button>
             </div>

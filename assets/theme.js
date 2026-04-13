@@ -234,6 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       event.preventDefault();
 
+      const submitter = event.submitter;
+      const isBuyNow = submitter?.hasAttribute('data-buy-now');
+
       try {
         const response = await fetch('/cart/add.js', {
           method: 'POST',
@@ -248,6 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         await response.json();
+
+        if (isBuyNow) {
+          window.location.href = '/checkout';
+          return;
+        }
+
         const cartResponse = await fetch('/cart.js');
         const cart = await cartResponse.json();
         document.querySelectorAll('[data-cart-count]').forEach((count) => {
