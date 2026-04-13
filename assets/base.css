@@ -2060,6 +2060,7 @@ textarea {
   }
 
   .header__catalog-toggle {
+    order: 1;
     width: 34px;
     height: 34px;
     padding: 0;
@@ -2090,6 +2091,7 @@ textarea {
   }
 
   .header__logo {
+    order: 2;
     flex: 0 0 auto;
   }
 
