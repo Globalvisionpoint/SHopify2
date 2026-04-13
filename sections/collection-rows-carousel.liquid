@@ -2,8 +2,13 @@
   <div class="page-width">
     {% for block in section.blocks %}
       {% assign row_collection = block.settings.collection %}
-      <div class="collection-rows__item" {{ block.shopify_attributes }}
-        {% if block.settings.background_image != blank %}style="background-image: url('{{ block.settings.background_image | image_url: width: 1920 }}'); background-position-y: {{ block.settings.background_position }}%;"{% endif %}>
+      
+      <!-- Background image for gap BEFORE carousel -->
+      {% if block.settings.background_image != blank %}
+        <div class="collection-rows__gap-bg" style="background-image: url('{{ block.settings.background_image | image_url: width: 1920 }}'); background-position-y: {{ block.settings.background_position }}%;"></div>
+      {% endif %}
+      
+      <div class="collection-rows__item" {{ block.shopify_attributes }}>
         <div class="collection-rows__head">
           {% if row_collection != blank %}
             <a href="{{ row_collection.url }}" class="collection-rows__title-link">
