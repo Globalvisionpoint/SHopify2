@@ -2121,9 +2121,47 @@ textarea {
   }
 
   .hero-promo__card {
-    width: min(92vw, 340px);
-    padding: 22px 18px 24px;
+    width: min(90vw, 320px);
+    padding: 16px 14px 16px;
     inset: 56% auto auto 50%;
+    border-radius: 24px;
+  }
+
+  .hero-promo__heading {
+    margin: 0 0 8px 0;
+    font-size: clamp(1.15rem, 4.7vw, 1.7rem);
+  }
+
+  .hero-promo__price-line {
+    margin-bottom: 8px;
+  }
+
+  .hero-promo__highlight {
+    font-size: clamp(2.4rem, 10vw, 3.2rem);
+  }
+
+  .hero-promo__suffix {
+    font-size: clamp(1rem, 4vw, 1.35rem);
+  }
+
+  .hero-promo__text {
+    margin: 8px 0 10px 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .hero-promo__divider {
+    margin: 10px auto;
+  }
+
+  .hero-promo__note {
+    margin: 0 0 14px 0;
+    font-size: 0.9rem;
+  }
+
+  .hero-promo__button {
+    max-width: 240px;
+    padding: 11px 20px;
   }
 
   .category-grid__items,
