@@ -231,7 +231,7 @@ textarea {
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: auto auto auto auto minmax(0, 1fr) auto;
+  grid-template-columns: auto auto auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 4px;
   padding: 8px 14px;
@@ -402,25 +402,25 @@ textarea {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border: 0;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(237, 28, 36, 0.7);
   border-radius: 10px;
-  color: #fff;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  box-shadow: 0 10px 22px rgba(190, 13, 22, 0.18);
+  color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.14);
   text-decoration: none;
   flex-shrink: 0;
 }
 
 .header__deals-trigger svg {
-  width: 19px;
-  height: 19px;
+  width: 18px;
+  height: 18px;
 }
 
 .header__deals {
   display: flex;
   align-items: center;
+  gap: 6px;
   padding: 0;
   border: none;
   background: transparent;
@@ -438,30 +438,21 @@ textarea {
 }
 
 .header__deals-trigger:hover {
-  filter: brightness(1.05);
+  background: rgba(255, 255, 255, 0.22);
 }
 
-.header__actions {
+.header__deals-icon {
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.header__action {
-  position: relative;
-  display: grid;
-  place-items: center;
+  justify-content: center;
   width: 40px;
+  height: 40px;
   height: 40px;
   border-radius: 12px;
   color: #fff;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.header__cart-count {
-  position: absolute;
-  top: -4px;
-  right: -4px;
+.header__deals-icon svg {
+  width: 100%;
+  height: 100%;
   min-width: 20px;
   height: 20px;
   padding: 0 5px;
