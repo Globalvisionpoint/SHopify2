@@ -1,0 +1,68 @@
+<section class="collection-page section-space">
+  <div class="page-width page-backdrop">
+    <div class="collection-page__toolbar">
+      <div>
+        <h1 class="collection-page__title">Rezultatele cautarii pentru: "{{ search.terms }}"</h1>
+      </div>
+
+      {% if search.results_count > 0 %}
+        <form class="collection-page__sort" method="get">
+          <label for="SortBy">Sorteaza...</label>
+          <select name="sort_by" id="SortBy" onchange="this.form.submit()">
+            <option value="relevance">Relevanta</option>
+            <option value="title-ascending">Titlu (A-Z)</option>
+            <option value="title-descending">Titlu (Z-A)</option>
+            <option value="price-ascending">Pret (Ascending)</option>
+            <option value="price-descending">Pret (Descending)</option>
+          </select>
+        </form>
+      {% endif %}
+    </div>
+
+    {% if search.performed %}
+      {% if search.results_count == 0 %}
+        <div class="search-no-results">
+          <p>Nu am gasit produse pentru "{{ search.terms }}"</p>
+          <p>Incearca cu alti termeni de cautare.</p>
+        </div>
+      {% else %}
+        <div>
+          {% paginate search.results by 12 %}
+            <div class="collection-grid">
+              {% for item in search.results %}
+                {% if item.object_type == 'product' %}
+                  {% render 'product-card', product: item %}
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            {% if paginate.pages > 1 %}
+              <nav class="pagination" aria-label="Paginare cautare">
+                {% if paginate.previous %}
+                  <a href="{{ paginate.previous.url }}" class="pagination__item">Anterior</a>
+                {% endif %}
+                <span class="pagination__item pagination__item--current">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+                {% if paginate.next %}
+                  <a href="{{ paginate.next.url }}" class="pagination__item">Urmator</a>
+                {% endif %}
+              </nav>
+            {% endif %}
+          {% endpaginate %}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .search-no-results {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .search-no-results p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 10px 0;
+  }
+</style>
