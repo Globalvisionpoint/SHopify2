@@ -1083,6 +1083,10 @@ textarea {
   margin-bottom: 1cm;
 }
 
+.promo-products .rail-carousel {
+  margin-bottom: 0;
+}
+
 .promo-products .page-width {
   position: relative;
 }
