@@ -208,15 +208,32 @@ textarea {
 }
 
 .header__inner {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: auto auto minmax(240px, 1fr) auto auto;
   align-items: center;
   gap: 14px;
   padding: 8px 14px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(12px);
+  background: transparent;
+  backdrop-filter: blur(var(--header-blur, 12px));
   box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.header__inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    var(--header-grad-angle, 90deg),
+    var(--header-grad-start, #ffffff) 0%,
+    var(--header-grad-end, #ed1c24) 100%
+  );
+  opacity: var(--header-glass-opacity, 0.86);
+  z-index: -1;
 }
 
 .header__logo,

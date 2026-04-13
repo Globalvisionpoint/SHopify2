@@ -1,4 +1,14 @@
-<header class="header" data-header>
+<header
+  class="header"
+  data-header
+  style="
+    --header-glass-opacity: {{ section.settings.header_glass_opacity | divided_by: 100.0 }};
+    --header-grad-start: {{ section.settings.header_grad_start }};
+    --header-grad-end: {{ section.settings.header_grad_end }};
+    --header-grad-angle: {{ section.settings.header_grad_angle }}deg;
+    --header-blur: {{ section.settings.header_blur }}px;
+  "
+>
   <div class="page-width header__inner">
     <a class="header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
       {% if section.settings.logo != blank %}
@@ -719,6 +729,52 @@
       "id": "search_placeholder",
       "label": "Placeholder cautare",
       "default": "Incepe o cautare..."
+    },
+    {
+      "type": "header",
+      "content": "Stil bara header"
+    },
+    {
+      "type": "color",
+      "id": "header_grad_start",
+      "label": "Culoare gradient stanga",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_grad_end",
+      "label": "Culoare gradient dreapta",
+      "default": "#ed1c24"
+    },
+    {
+      "type": "range",
+      "id": "header_glass_opacity",
+      "label": "Opacitate fundal header",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 86
+    },
+    {
+      "type": "range",
+      "id": "header_blur",
+      "label": "Blur fundal header",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "header_grad_angle",
+      "label": "Unghi gradient",
+      "min": 0,
+      "max": 180,
+      "step": 1,
+      "unit": "deg",
+      "default": 90
     },
     {
       "type": "header",
