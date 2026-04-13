@@ -72,6 +72,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target === mobileMenu) closeMobileMenu();
   });
 
+  /* ---- Mobile accordion ---- */
+  document.querySelectorAll('[data-mob-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cat = btn.closest('.mob-cat');
+      const bodyId = btn.getAttribute('aria-controls');
+      const body = document.getElementById(bodyId);
+      const plusEl = btn.querySelector('.mob-cat__plus');
+      const isOpen = cat.classList.contains('mob-cat--open');
+
+      /* close all others first */
+      document.querySelectorAll('.mob-cat--open').forEach((openCat) => {
+        openCat.classList.remove('mob-cat--open');
+        const openBody = openCat.querySelector('.mob-cat__body');
+        const openPlus = openCat.querySelector('.mob-cat__plus');
+        const openBtn = openCat.querySelector('[data-mob-toggle]');
+        if (openBody) openBody.hidden = true;
+        if (openPlus) openPlus.textContent = '+';
+        if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+      });
+
+      /* toggle clicked one */
+      if (!isOpen) {
+        cat.classList.add('mob-cat--open');
+        if (body) body.hidden = false;
+        if (plusEl) plusEl.textContent = '\u2212';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
   megaBackdrop?.addEventListener('click', closeMegaMenu);
 
   document.querySelectorAll('[data-mega-trigger]').forEach((trigger) => {
