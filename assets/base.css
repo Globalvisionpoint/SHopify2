@@ -231,9 +231,9 @@ textarea {
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: auto auto minmax(240px, 1fr) auto auto;
+  grid-template-columns: auto auto minmax(320px, 1fr) auto auto;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
   padding: 8px 14px;
   border-radius: 18px;
   background: transparent;
@@ -351,6 +351,8 @@ textarea {
 
 .header__search {
   position: relative;
+  flex: 1;
+  min-width: 0;
 }
 
 .header__search-input {
@@ -404,10 +406,11 @@ textarea {
   background: transparent;
   cursor: pointer;
   text-decoration: none;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 400;
   color: #000;
   transition: opacity 0.3s ease;
+  white-space: nowrap;
 }
 
 .header__deals:hover {
