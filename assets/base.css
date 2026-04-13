@@ -2042,8 +2042,8 @@ textarea {
     order: 0;
     margin-inline: 0;
     min-width: 0;
-    width: 2cm;
-    flex: 0 0 2cm;
+    width: auto;
+    flex: 1 1 auto;
   }
 
   .header__search-input {
@@ -2074,6 +2074,13 @@ textarea {
     display: none !important;
   }
 
+  .header__deals {
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
   .header__logo-image {
     max-height: 24px;
   }
@@ -2084,6 +2091,7 @@ textarea {
 
   .header__actions {
     gap: 3px;
+    margin-left: auto;
     flex: 0 0 auto;
   }
 
@@ -2107,6 +2115,7 @@ textarea {
   .hero-promo__placeholder,
   .hero-promo__image--placeholder {
     min-height: 520px;
+    margin-top: 12px;
     border-bottom-left-radius: 90px 34px;
     border-bottom-right-radius: 90px 34px;
   }
@@ -2202,6 +2211,9 @@ textarea {
 @media screen and (max-width: 560px) {
   .header__deals {
     display: none !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .category-grid__items,
