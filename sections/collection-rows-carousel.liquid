@@ -1,0 +1,114 @@
+<section class="collection-rows section-space section-space--lg">
+  <div class="page-width">
+    {% for block in section.blocks %}
+      {% assign row_collection = block.settings.collection %}
+      <div class="collection-rows__item" {{ block.shopify_attributes }}>
+        <div class="collection-rows__head">
+          {% if row_collection != blank %}
+            <a href="{{ row_collection.url }}" class="collection-rows__title-link">
+              {{ block.settings.title | default: row_collection.title }}
+              <span class="collection-rows__view-all">(vezi tot)</span>
+            </a>
+          {% else %}
+            <h3 class="collection-rows__title-link">
+              {{ block.settings.title | default: 'Colectie' }}
+              <span class="collection-rows__view-all">(vezi tot)</span>
+            </h3>
+          {% endif %}
+        </div>
+
+        <div class="product-rail product-rail--row">
+          {% if row_collection != blank and row_collection.products_count > 0 %}
+            {% for product in row_collection.products limit: section.settings.products_to_show %}
+              {% render 'product-card', product: product %}
+            {% endfor %}
+          {% else %}
+            {% for index in (1..4) %}
+              <article class="product-card product-card--placeholder">
+                <div class="product-card__media">{{ 'product-' | append: index | placeholder_svg_tag: 'product-card__placeholder-image' }}</div>
+                <div class="product-card__body">
+                  <p class="product-card__title">Produs demonstrativ {{ index }}</p>
+                  <div class="price-block">
+                    <span class="price-block__current">99,00 lei</span>
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+
+    {% if section.settings.shop_button_label != blank %}
+      {% assign shop_button_url = routes.all_products_collection_url %}
+      {% if section.settings.shop_button_collection != blank %}
+        {% assign shop_button_url = section.settings.shop_button_collection.url %}
+      {% endif %}
+      <div class="collection-rows__footer">
+        <a href="{{ shop_button_url }}" class="button button--primary">{{ section.settings.shop_button_label }}</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection rows carousel",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Numar produse per rand",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "shop_button_label",
+      "label": "Text buton final",
+      "default": "Spre magazin"
+    },
+    {
+      "type": "collection",
+      "id": "shop_button_collection",
+      "label": "Colectie buton final"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Collection row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titlu rand",
+          "default": "Decoratiuni pentru casa"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Colectie"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Collection rows carousel",
+      "blocks": [
+        { "type": "row", "settings": { "title": "Decoratiuni pentru casa" } },
+        { "type": "row", "settings": { "title": "Bucatarie" } },
+        { "type": "row", "settings": { "title": "Auto & moto" } },
+        { "type": "row", "settings": { "title": "Gradina" } },
+        { "type": "row", "settings": { "title": "Jucarii" } },
+        { "type": "row", "settings": { "title": "Animale" } },
+        { "type": "row", "settings": { "title": "Mercerie" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

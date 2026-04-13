@@ -103,11 +103,80 @@
         "collection": "auto-moto",
         "products_to_show": 6
       }
+    },
+    "collection_rows": {
+      "type": "collection-rows-carousel",
+      "blocks": {
+        "row_decor": {
+          "type": "row",
+          "settings": {
+            "title": "Decoratiuni pentru casa",
+            "collection": "decoratiuni"
+          }
+        },
+        "row_bucatarie": {
+          "type": "row",
+          "settings": {
+            "title": "Bucatarie",
+            "collection": "frontpage"
+          }
+        },
+        "row_auto": {
+          "type": "row",
+          "settings": {
+            "title": "Auto & moto",
+            "collection": "auto-moto"
+          }
+        },
+        "row_gradina": {
+          "type": "row",
+          "settings": {
+            "title": "Gradina",
+            "collection": "gradina"
+          }
+        },
+        "row_jucarii": {
+          "type": "row",
+          "settings": {
+            "title": "Jucarii",
+            "collection": "jucarii"
+          }
+        },
+        "row_animale": {
+          "type": "row",
+          "settings": {
+            "title": "Animale",
+            "collection": "animale"
+          }
+        },
+        "row_mercerie": {
+          "type": "row",
+          "settings": {
+            "title": "Mercerie",
+            "collection": "mercerie"
+          }
+        }
+      },
+      "block_order": [
+        "row_decor",
+        "row_bucatarie",
+        "row_auto",
+        "row_gradina",
+        "row_jucarii",
+        "row_animale",
+        "row_mercerie"
+      ],
+      "settings": {
+        "products_to_show": 10,
+        "shop_button_label": "Spre magazin",
+        "shop_button_collection": "all"
+      }
     }
   },
   "order": [
     "hero",
     "categories",
-    "promo"
+    "promo",
+    "collection_rows"
   ]
 }

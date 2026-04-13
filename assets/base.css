@@ -1096,7 +1096,6 @@ textarea {
   pointer-events: none;
 }
 
-.product-rail,
 .collection-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1105,7 +1104,60 @@ textarea {
 }
 
 .product-rail {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
   margin-top: 18px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+}
+
+.product-rail .product-card {
+  flex: 0 0 clamp(220px, 23vw, 300px);
+  scroll-snap-align: start;
+}
+
+.product-rail::-webkit-scrollbar {
+  height: 6px;
+}
+
+.product-rail::-webkit-scrollbar-thumb {
+  background: rgba(237, 28, 36, 0.35);
+  border-radius: 999px;
+}
+
+.collection-rows__item {
+  margin-top: 18px;
+}
+
+.collection-rows__head {
+  margin-bottom: 8px;
+}
+
+.collection-rows__title-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  color: #1f1f25;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.collection-rows__view-all {
+  font-size: 0.82rem;
+  color: #2f2f36;
+  font-weight: 600;
+}
+
+.collection-rows__footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .product-card {
