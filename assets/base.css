@@ -1590,9 +1590,11 @@ textarea {
   bottom: -26px;
   transform: translateX(-50%);
   font-family: var(--font-heading);
-  font-size: clamp(4rem, 14vw, 11rem);
+  font-size: clamp(2.2rem, 11vw, 11rem);
   font-weight: 800;
   line-height: 0.8;
+  white-space: nowrap;
+  max-width: calc(100vw - 20px);
   color: rgba(237, 28, 36, 0.12);
   pointer-events: none;
 }
