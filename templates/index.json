@@ -20,7 +20,7 @@
         "text": "<p>Plaseaza comanda acum si iti trimitem automat voucherul cadou direct pe email.</p>",
         "note": "Valabil la urmatoarea comanda de minimum 100 Lei",
         "button_label": "Vreau promotia!",
-        "button_link": ""
+        "button_link": "shopify://collections"
       }
     },
     "categories": {
@@ -153,7 +153,7 @@
           "type": "row",
           "settings": {
             "title": "Mercerie",
-            "collection": "mercerie"
+            "collection": "auto-moto"
           }
         }
       },
