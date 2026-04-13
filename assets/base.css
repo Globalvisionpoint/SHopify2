@@ -402,6 +402,7 @@ textarea {
   display: flex;
   align-items: center;
   gap: 6px;
+  margin-inline: 8px;
   padding: 0;
   border: none;
   background: transparent;
@@ -422,9 +423,10 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
+  color: var(--color-primary);
 }
 
 .header__deals-icon svg {
