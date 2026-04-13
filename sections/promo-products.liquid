@@ -1,7 +1,5 @@
-<section class="promo-products section-space section-space--lg">
-  {% if section.settings.background_image != blank %}
-    <div class="promo-products__gap-bg" style="background-image: url('{{ section.settings.background_image | image_url: width: 1920 }}'); background-position-y: {{ section.settings.background_position }}%;"></div>
-  {% endif %}
+<section class="promo-products section-space section-space--lg"
+  {% if section.settings.background_image != blank %}style="background-image: url('{{ section.settings.background_image | image_url: width: 1920 }}'); background-position-y: {{ section.settings.background_position }}%;"{% endif %}>
   <div class="page-width">
     <div class="section-bar">
       <h2 class="section-bar__title">{{ section.settings.heading }}</h2>
