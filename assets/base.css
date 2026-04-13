@@ -1079,6 +1079,10 @@ textarea {
   border-radius: 10px;
 }
 
+.promo-products {
+  margin-bottom: 5cm;
+}
+
 .promo-products .page-width {
   position: relative;
 }
@@ -1183,6 +1187,10 @@ textarea {
 
 .rail-carousel__dot.is-active {
   background: var(--color-primary);
+}
+
+.collection-rows {
+  margin-bottom: 5cm;
 }
 
 .collection-rows__item {
