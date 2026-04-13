@@ -846,6 +846,18 @@ textarea {
   border-bottom-right-radius: 160px 70px;
 }
 
+.hero-promo.section-space {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.hero-promo .hero-promo__media.page-width-wide {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
 .hero-promo__image,
 .hero-promo__placeholder,
 .hero-promo__image--placeholder {
