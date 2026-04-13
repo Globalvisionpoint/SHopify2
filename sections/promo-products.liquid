@@ -1,0 +1,70 @@
+<section class="promo-products section-space section-space--lg">
+  <div class="page-width">
+    <div class="section-bar">
+      <h2 class="section-bar__title">{{ section.settings.heading }}</h2>
+      {% if section.settings.collection != blank %}
+        <a href="{{ section.settings.collection.url }}" class="section-bar__link" aria-label="Vezi toate produsele">
+          {% render 'icon', name: 'arrow-right' %}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="promo-products__backdrop" aria-hidden="true">%</div>
+
+    {% assign featured_collection = section.settings.collection %}
+    {% if featured_collection != blank and featured_collection.products_count > 0 %}
+      <div class="product-rail">
+        {% for product in featured_collection.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="product-rail">
+        {% for index in (1..4) %}
+          <article class="product-card product-card--placeholder">
+            <div class="product-card__media">{{ 'product-' | append: index | placeholder_svg_tag: 'product-card__placeholder-image' }}</div>
+            <div class="product-card__body">
+              <p class="product-card__title">Produs demonstrativ {{ index }}</p>
+              <div class="price-block">
+                <span class="price-block__current">99,00 lei</span>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titlu",
+      "default": "Noutati"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colectie"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Numar produse",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo products"
+    }
+  ]
+}
+{% endschema %}

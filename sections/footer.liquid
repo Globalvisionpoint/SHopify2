@@ -1,0 +1,129 @@
+<footer class="footer section-space">
+  <div class="page-width footer__wrap">
+    <div class="footer__brand">
+      <a class="footer__logo" href="{{ routes.root_url }}">
+        {% if section.settings.logo != blank %}
+          {{ section.settings.logo | image_url: width: 260 | image_tag: class: 'footer__logo-image', alt: shop.name, widths: '120, 180, 260' }}
+        {% else %}
+          <span class="footer__logo-mark">CD</span>
+          <span class="footer__logo-text">{{ shop.name }}</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="footer__columns">
+      <div class="footer__column">
+        <h3>{{ section.settings.column_1_title }}</h3>
+        <div class="footer__richtext rte">{{ section.settings.column_1_text }}</div>
+      </div>
+
+      <div class="footer__column">
+        <h3>{{ section.settings.column_2_title }}</h3>
+        <div class="footer__richtext rte">{{ section.settings.column_2_text }}</div>
+      </div>
+
+      <div class="footer__column">
+        <h3>{{ section.settings.column_3_title }}</h3>
+        <div class="footer__richtext rte">{{ section.settings.column_3_text }}</div>
+        {% if section.settings.contact_label != blank and section.settings.contact_link != blank %}
+          <a href="{{ section.settings.contact_link }}" class="button button--light">{{ section.settings.contact_label }}</a>
+        {% endif %}
+      </div>
+
+      <div class="footer__column">
+        <h3>{{ section.settings.column_4_title }}</h3>
+        <div class="footer__richtext rte">{{ section.settings.column_4_text }}</div>
+      </div>
+    </div>
+
+    <div class="footer__socials">
+      {% if settings.social_facebook_link != blank %}
+        <a href="{{ settings.social_facebook_link }}" aria-label="Facebook">{% render 'icon', name: 'facebook' %}</a>
+      {% endif %}
+      {% if settings.social_instagram_link != blank %}
+        <a href="{{ settings.social_instagram_link }}" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a>
+      {% endif %}
+      {% if settings.social_tiktok_link != blank %}
+        <a href="{{ settings.social_tiktok_link }}" aria-label="TikTok">{% render 'icon', name: 'tiktok' %}</a>
+      {% endif %}
+      {% if settings.social_youtube_link != blank %}
+        <a href="{{ settings.social_youtube_link }}" aria-label="YouTube">{% render 'icon', name: 'youtube' %}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="footer__watermark">{{ shop.name }}</div>
+  <p class="footer__copyright">Copyright © {{ 'now' | date: '%Y' }} {{ shop.name }}. Toate drepturile rezervate.</p>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "column_1_title",
+      "label": "Titlu coloana 1",
+      "default": "Servicii clienti"
+    },
+    {
+      "type": "richtext",
+      "id": "column_1_text",
+      "label": "Text coloana 1",
+      "default": "<ul><li>14 zile drept de retur</li><li>Garantii si service</li><li>Promotii speciale</li></ul>"
+    },
+    {
+      "type": "text",
+      "id": "column_2_title",
+      "label": "Titlu coloana 2",
+      "default": "Comenzi si livrare"
+    },
+    {
+      "type": "richtext",
+      "id": "column_2_text",
+      "label": "Text coloana 2",
+      "default": "<ul><li>Contul meu</li><li>Livrarea comenzilor</li><li>Modalitati de plata</li></ul>"
+    },
+    {
+      "type": "text",
+      "id": "column_3_title",
+      "label": "Titlu coloana 3",
+      "default": "Ajutor clienti"
+    },
+    {
+      "type": "richtext",
+      "id": "column_3_text",
+      "label": "Text coloana 3",
+      "default": "<ul><li>Protectia consumatorului</li><li>Solutionarea litigiilor</li></ul>"
+    },
+    {
+      "type": "text",
+      "id": "contact_label",
+      "label": "Text buton contact",
+      "default": "Contact & FAQ"
+    },
+    {
+      "type": "url",
+      "id": "contact_link",
+      "label": "Link buton contact"
+    },
+    {
+      "type": "text",
+      "id": "column_4_title",
+      "label": "Titlu coloana 4",
+      "default": "Detalii"
+    },
+    {
+      "type": "richtext",
+      "id": "column_4_text",
+      "label": "Text coloana 4",
+      "default": "<ul><li>Despre brand</li><li>Termeni si conditii</li><li>Politica de confidentialitate</li><li>Politica cookies</li></ul>"
+    }
+  ]
+}
+{% endschema %}

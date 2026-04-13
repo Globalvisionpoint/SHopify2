@@ -1,0 +1,11 @@
+{% assign target = product %}
+{% if use_variant %}
+  {% assign target = product.selected_or_first_available_variant %}
+{% endif %}
+
+<div class="price-block">
+  {% if target.compare_at_price > target.price %}
+    <span class="price-block__compare">{{ target.compare_at_price | money }}</span>
+  {% endif %}
+  <span class="price-block__current">{{ target.price | money }}</span>
+</div>

@@ -1,0 +1,53 @@
+<section class="cart-page section-space">
+  <div class="page-width">
+    <h1 class="page-title">Cosul tau</h1>
+
+    {% if cart.item_count == 0 %}
+      <div class="empty-state">
+        <p>Cosul este momentan gol.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button button--primary">Continua cumparaturile</a>
+      </div>
+    {% else %}
+      <form action="{{ routes.cart_url }}" method="post" class="cart-form">
+        <div class="cart-table">
+          {% for item in cart.items %}
+            <div class="cart-line">
+              <a href="{{ item.url }}" class="cart-line__media">
+                {% if item.image != blank %}
+                  {{ item.image | image_url: width: 240 | image_tag: alt: item.product.title, class: 'cart-line__image', widths: '80, 120, 180, 240' }}
+                {% endif %}
+              </a>
+
+              <div class="cart-line__content">
+                <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
+                <p class="cart-line__price">{{ item.final_line_price | money }}</p>
+              </div>
+
+              <div class="cart-line__qty">
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="cart-footer">
+          <div class="cart-footer__total">
+            <span>Total</span>
+            <strong>{{ cart.total_price | money }}</strong>
+          </div>
+          <div class="cart-footer__actions">
+            <button type="submit" class="button button--secondary" name="update">Actualizeaza cosul</button>
+            <button type="submit" class="button button--primary" name="checkout">Finalizeaza comanda</button>
+          </div>
+        </div>
+      </form>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main cart",
+  "settings": []
+}
+{% endschema %}

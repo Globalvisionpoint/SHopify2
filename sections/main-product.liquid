@@ -1,0 +1,108 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<section class="product-page section-space">
+  <div class="page-width page-backdrop">
+    <div class="product-page__top">
+      <p class="product-page__crumbs">
+        <span>Cod produs {{ product.id }}</span>
+        {% if product.collections.first %}
+          <span>•</span>
+          <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+        {% endif %}
+      </p>
+    </div>
+
+    <div class="product-page__layout">
+      <div class="product-gallery">
+        <div class="product-gallery__main">
+          {% if product.featured_media != blank %}
+            {{ product.featured_media | image_url: width: 1200 | image_tag: class: 'product-gallery__image', alt: product.title, widths: '400, 700, 900, 1200' }}
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'product-gallery__image product-gallery__image--placeholder' }}
+          {% endif %}
+        </div>
+
+        {% if product.media.size > 1 %}
+          <div class="product-gallery__thumbs">
+            {% for media in product.media limit: 4 %}
+              <div class="product-gallery__thumb">
+                {{ media | image_url: width: 240 | image_tag: class: 'product-gallery__thumb-image', alt: product.title, widths: '120, 180, 240' }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="product-summary">
+        <h1 class="product-summary__title">{{ product.title }}</h1>
+
+        <div class="product-summary__price">
+          {% render 'price', product: product, use_variant: true %}
+        </div>
+
+        {% form 'product', product, class: 'product-form', data-product-form: '' %}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+          {% unless product.has_only_default_variant %}
+            <div class="product-form__variants">
+              {% for option in product.options_with_values %}
+                <label class="product-form__label" for="Option-{{ option.position }}">{{ option.name }}</label>
+                <select class="product-form__select" id="Option-{{ option.position }}" name="options[{{ option.name | escape }}]">
+                  {% for value in option.values %}
+                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                  {% endfor %}
+                </select>
+              {% endfor %}
+            </div>
+          {% endunless %}
+
+          <div class="product-form__purchase-row">
+            <div class="quantity-selector" data-quantity-selector>
+              <button type="button" class="quantity-selector__button" data-quantity-minus aria-label="Scade cantitatea">-</button>
+              <input class="quantity-selector__input" type="number" name="quantity" value="1" min="1">
+              <button type="button" class="quantity-selector__button" data-quantity-plus aria-label="Creste cantitatea">+</button>
+            </div>
+
+            <button type="submit" class="button button--primary button--wide" {% unless current_variant.available %}disabled{% endunless %}>
+              {% if current_variant.available %}
+                Adauga in cos
+              {% else %}
+                Indisponibil
+              {% endif %}
+            </button>
+          </div>
+        {% endform %}
+
+        <p class="product-summary__delivery">Ajunge la usa ta in maxim 48h!</p>
+
+        <div class="trust-row">
+          <div class="trust-row__item">{% render 'icon', name: 'shield' %}<span>Garantie de calitate</span></div>
+          <div class="trust-row__item">{% render 'icon', name: 'rotate' %}<span>14 zile drept de retur</span></div>
+          <div class="trust-row__item">{% render 'icon', name: 'truck' %}<span>Livrare rapida</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-tabs" data-tabs>
+      <div class="product-tabs__nav">
+        <button type="button" class="product-tabs__button is-active" data-tab-trigger="description">Descriere</button>
+        <button type="button" class="product-tabs__button" data-tab-trigger="reviews">Recenzii</button>
+      </div>
+
+      <div class="product-tabs__panel is-active" data-tab-panel="description">
+        <div class="rte">{{ product.description }}</div>
+      </div>
+
+      <div class="product-tabs__panel" data-tab-panel="reviews">
+        <p>Integreaza o aplicatie de review-uri Shopify pentru afisarea evaluarilor reale ale clientilor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,119 @@
+<header class="header" data-header>
+  <div class="page-width header__inner">
+    <a class="header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {% if section.settings.logo != blank %}
+        {{ section.settings.logo | image_url: width: 220 | image_tag: class: 'header__logo-image', alt: shop.name, widths: '110, 160, 220' }}
+      {% else %}
+        <span class="header__logo-mark">CD</span>
+        <span class="header__logo-text">{{ shop.name }}</span>
+      {% endif %}
+    </a>
+
+    <button class="header__catalog-toggle" type="button" data-mobile-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
+      {% render 'icon', name: 'menu' %}
+      <span>{{ section.settings.catalog_label }}</span>
+      {% render 'icon', name: 'chevron-down' %}
+    </button>
+
+    <nav class="header__links" aria-label="Navigatie principala">
+      {% if section.settings.menu != blank %}
+        {% for link in section.settings.menu.links limit: 6 %}
+          <a href="{{ link.url }}" class="header__link">{{ link.title }}</a>
+        {% endfor %}
+      {% endif %}
+      {% if section.settings.sale_link_label != blank and section.settings.sale_link != blank %}
+        <a href="{{ section.settings.sale_link }}" class="header__link header__link--accent">{{ section.settings.sale_link_label }}</a>
+      {% endif %}
+    </nav>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="header__search">
+      <input type="hidden" name="type" value="product">
+      <label class="visually-hidden" for="Search-In-Modal">Cauta produse</label>
+      <input
+        id="Search-In-Modal"
+        class="header__search-input"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ section.settings.search_placeholder }}"
+      >
+      <button class="header__search-button" type="submit" aria-label="Cauta">
+        {% render 'icon', name: 'search' %}
+      </button>
+    </form>
+
+    <div class="header__actions">
+      <a class="header__action" href="{{ routes.account_url }}" aria-label="Cont">
+        {% render 'icon', name: 'account' %}
+      </a>
+      <a class="header__action" href="{{ routes.cart_url }}" aria-label="Cos">
+        {% render 'icon', name: 'cart' %}
+        <span class="header__cart-count" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" data-mobile-menu hidden>
+    <div class="mobile-menu__panel">
+      <div class="mobile-menu__top">
+        <span class="mobile-menu__title">Meniu</span>
+        <button type="button" class="mobile-menu__close" data-mobile-menu-close aria-label="Inchide meniul">
+          {% render 'icon', name: 'close' %}
+        </button>
+      </div>
+
+      {% if section.settings.menu != blank %}
+        <nav class="mobile-menu__nav" aria-label="Navigatie mobila">
+          {% for link in section.settings.menu.links %}
+            <a href="{{ link.url }}" class="mobile-menu__link">{{ link.title }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+
+      {% if section.settings.sale_link_label != blank and section.settings.sale_link != blank %}
+        <a href="{{ section.settings.sale_link }}" class="mobile-menu__sale">{{ section.settings.sale_link_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Meniu principal"
+    },
+    {
+      "type": "text",
+      "id": "catalog_label",
+      "label": "Text buton catalog",
+      "default": "Magazin"
+    },
+    {
+      "type": "text",
+      "id": "sale_link_label",
+      "label": "Text link promotii",
+      "default": "Reduceri"
+    },
+    {
+      "type": "url",
+      "id": "sale_link",
+      "label": "Link promotii"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Placeholder cautare",
+      "default": "Incepe o cautare..."
+    }
+  ]
+}
+{% endschema %}

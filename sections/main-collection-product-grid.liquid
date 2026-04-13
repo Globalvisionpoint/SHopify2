@@ -1,0 +1,99 @@
+<section class="collection-page section-space">
+  <div class="page-width page-backdrop">
+    <div class="collection-page__toolbar">
+      <div>
+        <p class="collection-page__crumbs">
+          <a href="{{ routes.root_url }}">Prima pagina</a>
+          <span>/</span>
+          <span>{{ collection.title }}</span>
+        </p>
+        <h1 class="collection-page__title">{{ collection.title }}</h1>
+      </div>
+
+      <form class="collection-page__sort" method="get">
+        <label for="SortBy">Sorteaza...</label>
+        <select name="sort_by" id="SortBy" onchange="this.form.submit()">
+          {% for option in collection.sort_options %}
+            <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
+
+    <div class="collection-page__layout">
+      <aside class="collection-sidebar">
+        {% if collection.filters.size > 0 %}
+          {% for filter in collection.filters %}
+            <details class="collection-sidebar__group" open>
+              <summary>{{ filter.label }}</summary>
+              <div class="collection-sidebar__content">
+                {% case filter.type %}
+                  {% when 'list' %}
+                    {% for value in filter.values %}
+                      <a href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}" class="facet-link {% if value.active %}is-active{% endif %}">
+                        {{ value.label }}
+                        <span>{{ value.count }}</span>
+                      </a>
+                    {% endfor %}
+                  {% when 'price_range' %}
+                    <div class="facet-price">
+                      <span>{{ filter.min_value.value | default: 0 | money_without_trailing_zeros }}</span>
+                      <span>-</span>
+                      <span>{{ filter.max_value.value | default: filter.range_max | money_without_trailing_zeros }}</span>
+                    </div>
+                  {% endcase %}
+                </div>
+              </details>
+          {% endfor %}
+        {% else %}
+          <details class="collection-sidebar__group" open>
+            <summary>Categorii</summary>
+            <div class="collection-sidebar__content">
+              {% for tag in collection.all_tags limit: 8 %}
+                <a class="facet-link" href="{{ collection.url }}/{{ tag | handle }}">{{ tag }}</a>
+              {% endfor %}
+            </div>
+          </details>
+
+          <details class="collection-sidebar__group" open>
+            <summary>Pret</summary>
+            <div class="collection-sidebar__content">
+              <p class="collection-sidebar__hint">Configureaza filtrele din Shopify Search & Discovery pentru filtrare avansata.</p>
+            </div>
+          </details>
+        {% endif %}
+      </aside>
+
+      <div>
+        {% paginate collection.products by 12 %}
+          <div class="collection-grid">
+            {% for product in collection.products %}
+              {% render 'product-card', product: product %}
+            {% else %}
+              <p>Nu exista produse in aceasta colectie.</p>
+            {% endfor %}
+          </div>
+
+          {% if paginate.pages > 1 %}
+            <nav class="pagination" aria-label="Paginare colectie">
+              {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}" class="pagination__item">Anterior</a>
+              {% endif %}
+              <span class="pagination__item pagination__item--current">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+              {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" class="pagination__item">Urmator</a>
+              {% endif %}
+            </nav>
+          {% endif %}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main collection",
+  "settings": []
+}
+{% endschema %}

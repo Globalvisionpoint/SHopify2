@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-promo",
+      "settings": {}
+    },
+    "categories": {
+      "type": "category-grid",
+      "settings": {
+        "heading": "Categorii"
+      }
+    },
+    "promo": {
+      "type": "promo-products",
+      "settings": {
+        "heading": "Noutati",
+        "products_to_show": 6
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "promo"
+  ]
+}

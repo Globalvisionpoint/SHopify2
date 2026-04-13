@@ -1,0 +1,77 @@
+<section class="category-grid section-space">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <div class="section-heading section-heading--center">
+        <span class="section-heading__pill">{{ section.settings.heading }}</span>
+      </div>
+    {% endif %}
+
+    <div class="category-grid__items">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="category-card" {{ block.shopify_attributes }}>
+          <div class="category-card__media">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 480 | image_tag: class: 'category-card__image', alt: block.settings.title, widths: '160, 240, 320, 480' }}
+            {% else %}
+              {{ 'collection-1' | placeholder_svg_tag: 'category-card__image category-card__image--placeholder' }}
+            {% endif %}
+          </div>
+          <span class="category-card__title">{{ block.settings.title }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titlu sectiune",
+      "default": "Categorii"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categorie",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagine"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titlu",
+          "default": "Categorie"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Category grid",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Produse iHunt" } },
+        { "type": "category", "settings": { "title": "Electrocasnice" } },
+        { "type": "category", "settings": { "title": "Decoratiuni" } },
+        { "type": "category", "settings": { "title": "Bucatarie" } },
+        { "type": "category", "settings": { "title": "Auto-Moto" } },
+        { "type": "category", "settings": { "title": "Animale" } },
+        { "type": "category", "settings": { "title": "Jucarii" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

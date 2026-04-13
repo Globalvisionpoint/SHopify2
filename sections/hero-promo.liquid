@@ -1,0 +1,107 @@
+<section class="hero-promo section-space">
+  <div class="hero-promo__media page-width-wide">
+    {% if section.settings.background_image != blank %}
+      {{ section.settings.background_image | image_url: width: 2200 | image_tag: class: 'hero-promo__image', alt: section.settings.heading, widths: '750, 1100, 1500, 1780, 2200' }}
+    {% else %}
+      <div class="hero-promo__placeholder">{{ 'lifestyle-2' | placeholder_svg_tag: 'hero-promo__image hero-promo__image--placeholder' }}</div>
+    {% endif %}
+
+    <div class="hero-promo__overlay"></div>
+
+    <div class="hero-promo__card">
+      {% if section.settings.eyebrow != blank %}
+        <span class="hero-promo__eyebrow">{{ section.settings.eyebrow }}</span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="hero-promo__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.highlight_value != blank %}
+        <div class="hero-promo__price-line">
+          <span class="hero-promo__highlight">{{ section.settings.highlight_value }}</span>
+          {% if section.settings.highlight_suffix != blank %}
+            <span class="hero-promo__suffix">{{ section.settings.highlight_suffix }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="hero-promo__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+
+      {% if section.settings.note != blank %}
+        <p class="hero-promo__note">{{ section.settings.note }}</p>
+      {% endif %}
+
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="button button--primary hero-promo__button">{{ section.settings.button_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero promo",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Imagine fundal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "EXCLUSIV ONLINE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titlu",
+      "default": "LA ORICE COMANDA AZI PRIMESTI"
+    },
+    {
+      "type": "text",
+      "id": "highlight_value",
+      "label": "Valoare evidentiata",
+      "default": "25"
+    },
+    {
+      "type": "text",
+      "id": "highlight_suffix",
+      "label": "Sufix valoare",
+      "default": "LEI"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Plaseaza comanda acum si iti trimitem automat voucherul cadou direct pe email.</p>"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Nota",
+      "default": "Valabil la urmatoarea comanda de minimum 100 Lei"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Text buton",
+      "default": "Vreau promotia!"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link buton"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero promo"
+    }
+  ]
+}
+{% endschema %}
