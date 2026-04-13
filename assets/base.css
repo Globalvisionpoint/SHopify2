@@ -249,7 +249,7 @@ textarea {
   border-radius: inherit;
   background: linear-gradient(
     var(--header-grad-angle, 90deg),
-    var(--header-grad-start, #ffffff) 0%,
+    var(--header-grad-start, #ffffff00) 0%,
     var(--header-grad-end, #ed1c24) 100%
   );
   opacity: var(--header-glass-opacity, 0.86);
