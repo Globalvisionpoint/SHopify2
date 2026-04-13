@@ -1189,10 +1189,6 @@ textarea {
   background: var(--color-primary);
 }
 
-.collection-rows {
-  margin-top: 5cm;
-}
-
 .collection-rows__item {
   margin-top: 18px;
 }
