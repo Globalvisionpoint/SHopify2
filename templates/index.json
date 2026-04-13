@@ -29,50 +29,57 @@
         "category_8H4epe": {
           "type": "category",
           "settings": {
-            "title": "Categorie",
-            "link": ""
+            "image": "shopify://shop_images/IH3046_3-144x144.webp",
+            "title": "Produse iHunt",
+            "link": "shopify://collections/decoratiuni"
           }
         },
         "category_i6nxJK": {
           "type": "category",
           "settings": {
-            "title": "Categorie",
-            "link": ""
+            "image": "shopify://shop_images/17-144x144.webp",
+            "title": "Electrocasnice",
+            "link": "shopify://collections/decoratiuni"
           }
         },
         "category_KJiYCy": {
           "type": "category",
           "settings": {
-            "title": "Categorie",
-            "link": ""
+            "image": "shopify://shop_images/19-144x144.webp",
+            "title": "Decoratiuni",
+            "link": "shopify://collections/decoratiuni"
           }
         },
         "category_9VTDTg": {
           "type": "category",
           "settings": {
-            "title": "Categorie",
-            "link": ""
+            "image": "shopify://shop_images/8-144x144.webp",
+            "title": "Bucatarie",
+            "link": "shopify://collections/frontpage"
           }
         },
         "category_fEiQ9y": {
           "type": "category",
           "settings": {
-            "title": "Categorie",
-            "link": ""
+            "image": "shopify://shop_images/Produse-chinadepot-144x144.webp",
+            "title": "Auto-Moto",
+            "link": "shopify://collections/auto-moto"
           }
         },
         "category_XyYtqn": {
           "type": "category",
           "settings": {
-            "title": "Categorie",
-            "link": ""
+            "image": "shopify://shop_images/23-144x144.webp",
+            "title": "Animale",
+            "link": "shopify://collections/animale"
           }
         },
         "category_46TEJQ": {
           "type": "category",
           "settings": {
-            "title": "Categorie",
-            "link": ""
+            "image": "shopify://shop_images/14-144x144.webp",
+            "title": "Jucarii",
+            "link": "shopify://collections/jucarii"
           }
         }
       },
