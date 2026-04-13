@@ -2,7 +2,8 @@
   <div class="page-width">
     {% for block in section.blocks %}
       {% assign row_collection = block.settings.collection %}
-      <div class="collection-rows__item" {{ block.shopify_attributes }}>
+      <div class="collection-rows__item" {{ block.shopify_attributes }}
+        {% if block.settings.background_image != blank %}style="background-image: url('{{ block.settings.background_image | image_url: width: 1920 }}');"{% endif %}>
         <div class="collection-rows__head">
           {% if row_collection != blank %}
             <a href="{{ row_collection.url }}" class="collection-rows__title-link">
@@ -100,6 +101,11 @@
           "type": "collection",
           "id": "collection",
           "label": "Colectie"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Imagine fundal"
         }
       ]
     }
