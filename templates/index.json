@@ -1,8 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero-promo",
-      "settings": {}
+      "settings": {
+        "eyebrow": "EXCLUSIV ONLINE",
+        "heading": "LA ORICE COMANDA AZI PRIMESTI",
+        "highlight_value": "25",
+        "highlight_suffix": "LEI",
+        "text": "<p>Plaseaza comanda acum si iti trimitem automat voucherul cadou direct pe email.</p>",
+        "note": "Valabil la urmatoarea comanda de minimum 100 Lei",
+        "button_label": "Vreau promotia!",
+        "button_link": ""
+      }
     },
     "categories": {
       "type": "category-grid",
@@ -14,6 +32,7 @@
       "type": "promo-products",
       "settings": {
         "heading": "Noutati",
+        "collection": "auto-moto",
         "products_to_show": 6
       }
     }

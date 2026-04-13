@@ -1,5 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "current": "Default",
+  "current": {
+    "settings": {},
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify://shop_images/genereaza-logo-magain-online.png",
+          "menu": "categorii",
+          "catalog_label": "Magazin",
+          "sale_link_label": "Reduceri",
+          "sale_link": "",
+          "search_placeholder": "Incepe o cautare..."
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "column_1_title": "Servicii clienti",
+          "column_1_text": "<ul><li>14 zile drept de retur</li><li>Garantii si service</li><li>Promotii speciale</li></ul>",
+          "column_2_title": "Comenzi si livrare",
+          "column_2_text": "<ul><li>Contul meu</li><li>Livrarea comenzilor</li><li>Modalitati de plata</li></ul>",
+          "column_3_title": "Ajutor clienti",
+          "column_3_text": "<ul><li>Protectia consumatorului</li><li>Solutionarea litigiilor</li></ul>",
+          "contact_label": "Contact & FAQ",
+          "contact_link": "",
+          "column_4_title": "Detalii",
+          "column_4_text": "<ul><li>Despre brand</li><li>Termeni si conditii</li><li>Politica de confidentialitate</li><li>Politica cookies</li></ul>"
+        }
+      }
+    },
+    "content_for_index": []
+  },
   "presets": {
     "Default": {
       "settings": {}
