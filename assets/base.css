@@ -211,7 +211,7 @@ textarea {
   position: sticky;
   top: 0;
   z-index: 40;
-  padding: 14px 0 6px;
+  padding: 0;
 }
 
 .header--sticky-fixed {
@@ -1785,10 +1785,6 @@ textarea {
   .page-width,
   .page-width-wide {
     width: min(calc(100% - 16px), var(--page-width));
-  }
-
-  .header {
-    padding-top: 8px;
   }
 
   .header__inner {
