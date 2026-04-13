@@ -12,6 +12,7 @@
     "hero": {
       "type": "hero-promo",
       "settings": {
+        "background_image": "shopify://shop_images/dar-rafturile-sa-fie-cu-rosu.png",
         "eyebrow": "EXCLUSIV ONLINE",
         "heading": "LA ORICE COMANDA AZI PRIMESTI",
         "highlight_value": "25",
