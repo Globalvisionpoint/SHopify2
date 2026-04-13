@@ -201,10 +201,17 @@ textarea {
 }
 
 .header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 40;
   padding: 14px 0 6px;
+}
+
+.header--sticky-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
 }
 
 .header__inner {
@@ -285,6 +292,8 @@ textarea {
   height: 42px;
   border: 0;
   border-radius: var(--radius-sm);
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
   font-size: 0.94rem;
   font-weight: 800;
   cursor: pointer;
@@ -320,6 +329,11 @@ textarea {
 
 .header__link--accent {
   color: var(--color-primary);
+}
+
+.header__sale-link {
+  color: #fff;
+  font-weight: 700;
 }
 
 .header__search {
@@ -371,7 +385,8 @@ textarea {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  color: var(--color-primary);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .header__cart-count {

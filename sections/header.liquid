@@ -1,10 +1,10 @@
 <header
-  class="header"
+  class="header{% if section.settings.header_sticky %} header--sticky-fixed{% endif %}"
   data-header
   style="
     --header-glass-opacity: {{ section.settings.header_glass_opacity | divided_by: 100.0 }};
-    --header-grad-start: {{ section.settings.header_grad_start }};
-    --header-grad-end: {{ section.settings.header_grad_end }};
+    --header-grad-start: {{ section.settings.header_grad_start | color_modify: 'alpha', section.settings.header_grad_start_alpha | divided_by: 100.0 }};
+    --header-grad-end: {{ section.settings.header_grad_end | color_modify: 'alpha', section.settings.header_grad_end_alpha | divided_by: 100.0 }};
     --header-grad-angle: {{ section.settings.header_grad_angle }}deg;
     --header-blur: {{ section.settings.header_blur }}px;
   "
@@ -731,6 +731,12 @@
       "default": "Incepe o cautare..."
     },
     {
+      "type": "checkbox",
+      "id": "header_sticky",
+      "label": "Header mereu pe ecran (sticky)",
+      "default": true
+    },
+    {
       "type": "header",
       "content": "Stil bara header"
     },
@@ -738,13 +744,33 @@
       "type": "color",
       "id": "header_grad_start",
       "label": "Culoare gradient stanga",
-      "default": "#ffffff"
+      "default": "#f2f5f7"
+    },
+    {
+      "type": "range",
+      "id": "header_grad_start_alpha",
+      "label": "Transparenta stanga",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 28
     },
     {
       "type": "color",
       "id": "header_grad_end",
       "label": "Culoare gradient dreapta",
       "default": "#ed1c24"
+    },
+    {
+      "type": "range",
+      "id": "header_grad_end_alpha",
+      "label": "Opacitate dreapta",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 95
     },
     {
       "type": "range",

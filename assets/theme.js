@@ -5,8 +5,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileClose = document.querySelector('[data-mobile-menu-close]');
   const megaMenu = document.querySelector('[data-mega-menu]');
   const megaBackdrop = document.querySelector('[data-mega-backdrop]');
+  const header = document.querySelector('[data-header]');
 
   const isMobileViewport = () => window.matchMedia('(max-width: 767px)').matches;
+
+  const syncStickyOffset = () => {
+    if (!header) return;
+    if (header.classList.contains('header--sticky-fixed')) {
+      body.style.paddingTop = `${header.offsetHeight + 6}px`;
+    } else {
+      body.style.paddingTop = '';
+    }
+  };
+
+  syncStickyOffset();
 
   const openMegaMenu = () => {
     if (!megaMenu || !megaBackdrop || !catalogToggle) return;
@@ -162,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.addEventListener('resize', () => {
+    syncStickyOffset();
     if (isMobileViewport()) {
       closeMegaMenu();
     } else {
