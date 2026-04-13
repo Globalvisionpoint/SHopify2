@@ -28,6 +28,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -38,6 +39,7 @@ body {
     radial-gradient(circle at 18% 56%, rgba(255, 76, 91, 0.18), transparent 18%),
     radial-gradient(circle at 82% 28%, rgba(255, 55, 63, 0.18), transparent 16%),
     linear-gradient(180deg, #fffefe 0%, #ffffff 100%);
+  overflow-x: hidden;
 }
 
 body.menu-open {
@@ -1079,6 +1081,7 @@ textarea {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.12;
+  overflow-wrap: anywhere;
 }
 
 .collection-page__sort {
@@ -1157,6 +1160,12 @@ textarea {
   align-items: start;
 }
 
+.product-gallery,
+.product-summary,
+.product-tabs {
+  min-width: 0;
+}
+
 .product-gallery__main,
 .product-summary,
 .product-tabs,
@@ -1212,19 +1221,27 @@ textarea {
 }
 
 .product-gallery__thumbs {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
   gap: 8px;
   margin-top: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
 
 .product-gallery__thumb {
+  flex: 0 0 84px;
+  width: 84px;
+  height: 84px;
   padding: 8px;
   border: 0;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-card);
   cursor: pointer;
+  scroll-snap-align: start;
 }
 
 .product-gallery__thumb.is-active {
@@ -1234,9 +1251,18 @@ textarea {
 
 .product-gallery__thumb-image {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
   object-fit: cover;
   border-radius: 10px;
+}
+
+.product-gallery__thumbs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.product-gallery__thumbs::-webkit-scrollbar-thumb {
+  background: rgba(237, 28, 36, 0.35);
+  border-radius: 999px;
 }
 
 .product-summary {
@@ -1694,13 +1720,8 @@ textarea {
   .category-grid__items,
   .product-rail,
   .collection-grid,
-  .footer__columns,
-  .product-gallery__thumbs {
+  .footer__columns {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .product-gallery__thumbs {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .product-form__purchase-row {
@@ -1743,13 +1764,19 @@ textarea {
   .category-grid__items,
   .product-rail,
   .collection-grid,
-  .footer__columns,
-  .product-gallery__thumbs {
+  .footer__columns {
     grid-template-columns: 1fr;
   }
 
-  .product-gallery__thumbs {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .product-gallery__thumb {
+    flex-basis: 76px;
+    width: 76px;
+    height: 76px;
+  }
+
+  .product-form__purchase-row {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .header__catalog-toggle span:last-child {
