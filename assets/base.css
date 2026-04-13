@@ -1170,13 +1170,45 @@ textarea {
 }
 
 .product-gallery__main {
-  padding: 20px;
+  position: relative;
+  padding: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .product-gallery__image {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: contain;
+  border-radius: 16px;
+  background: #f5f5f6;
+}
+
+.product-gallery__floating {
+  position: absolute;
+  top: 22px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  color: var(--color-primary);
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+.product-gallery__floating svg {
+  width: 18px;
+  height: 18px;
+}
+
+.product-gallery__floating--wish {
+  left: 22px;
+}
+
+.product-gallery__floating--zoom {
+  right: 22px;
 }
 
 .product-gallery__thumbs {
@@ -1188,19 +1220,28 @@ textarea {
 
 .product-gallery__thumb {
   padding: 8px;
+  border: 0;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+
+.product-gallery__thumb.is-active {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
 }
 
 .product-gallery__thumb-image {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .product-summary {
-  padding: 18px 16px 20px;
+  padding: 18px 18px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .product-summary__price {
@@ -1303,6 +1344,7 @@ textarea {
 .product-tabs {
   margin-top: 18px;
   padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .product-tabs__nav {
@@ -1657,6 +1699,19 @@ textarea {
     grid-template-columns: 1fr 1fr;
   }
 
+  .product-gallery__thumbs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .product-form__purchase-row {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .product-summary__title {
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
+  }
+
   .collection-page__toolbar,
   .product-page__top {
     flex-direction: column;
@@ -1691,6 +1746,10 @@ textarea {
   .footer__columns,
   .product-gallery__thumbs {
     grid-template-columns: 1fr;
+  }
+
+  .product-gallery__thumbs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .header__catalog-toggle span:last-child {

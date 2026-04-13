@@ -123,6 +123,28 @@ document.addEventListener('DOMContentLoaded', () => {
     trigger.addEventListener('click', activatePanel);
   });
 
+  document.querySelectorAll('[data-product-gallery]').forEach((gallery) => {
+    const mainImage = gallery.querySelector('[data-gallery-main]');
+    if (!mainImage) return;
+
+    gallery.querySelectorAll('[data-gallery-thumb]').forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        const nextUrl = thumb.getAttribute('data-image-url');
+        const nextSrcset = thumb.getAttribute('data-image-srcset');
+        const nextAlt = thumb.getAttribute('data-image-alt') || mainImage.alt;
+
+        if (nextUrl) mainImage.src = nextUrl;
+        if (nextSrcset) mainImage.srcset = nextSrcset;
+        mainImage.alt = nextAlt;
+
+        gallery.querySelectorAll('[data-gallery-thumb]').forEach((item) => {
+          item.classList.remove('is-active');
+        });
+        thumb.classList.add('is-active');
+      });
+    });
+  });
+
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       closeMegaMenu();

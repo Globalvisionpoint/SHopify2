@@ -1,4 +1,5 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
+{% assign active_media = current_variant.featured_media | default: product.featured_media %}
 
 <section class="product-page section-space">
   <div class="page-width page-backdrop">
@@ -13,21 +14,37 @@
     </div>
 
     <div class="product-page__layout">
-      <div class="product-gallery">
+      <div class="product-gallery" data-product-gallery>
         <div class="product-gallery__main">
-          {% if product.featured_media != blank %}
-            {{ product.featured_media | image_url: width: 1200 | image_tag: class: 'product-gallery__image', alt: product.title, widths: '400, 700, 900, 1200' }}
+          <button type="button" class="product-gallery__floating product-gallery__floating--wish" aria-label="Favorite">
+            {% render 'icon', name: 'heart' %}
+          </button>
+          <button type="button" class="product-gallery__floating product-gallery__floating--zoom" aria-label="Mareste poza">
+            {% render 'icon', name: 'search' %}
+          </button>
+
+          {% if active_media != blank %}
+            {{ active_media | image_url: width: 1200 | image_tag: class: 'product-gallery__image', alt: product.title, widths: '400, 700, 900, 1200', data-gallery-main: '' }}
           {% else %}
             {{ 'product-1' | placeholder_svg_tag: 'product-gallery__image product-gallery__image--placeholder' }}
           {% endif %}
         </div>
 
         {% if product.media.size > 1 %}
-          <div class="product-gallery__thumbs">
-            {% for media in product.media limit: 4 %}
-              <div class="product-gallery__thumb">
-                {{ media | image_url: width: 240 | image_tag: class: 'product-gallery__thumb-image', alt: product.title, widths: '120, 180, 240' }}
-              </div>
+          <div class="product-gallery__thumbs" role="list">
+            {% for media in product.media %}
+              {% assign thumb_image = media.preview_image %}
+              <button
+                type="button"
+                class="product-gallery__thumb {% if active_media and media.id == active_media.id %}is-active{% endif %}"
+                data-gallery-thumb
+                data-image-url="{{ thumb_image | image_url: width: 1200 }}"
+                data-image-srcset="{{ thumb_image | image_url: width: 400 }} 400w, {{ thumb_image | image_url: width: 700 }} 700w, {{ thumb_image | image_url: width: 900 }} 900w, {{ thumb_image | image_url: width: 1200 }} 1200w"
+                data-image-alt="{{ media.alt | default: product.title | escape }}"
+                aria-label="Poza {{ forloop.index }}"
+              >
+                {{ thumb_image | image_url: width: 240 | image_tag: class: 'product-gallery__thumb-image', alt: product.title, widths: '120, 180, 240' }}
+              </button>
             {% endfor %}
           </div>
         {% endif %}
