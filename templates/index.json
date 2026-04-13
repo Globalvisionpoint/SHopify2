@@ -101,7 +101,9 @@
       "settings": {
         "heading": "Noutati",
         "collection": "auto-moto",
-        "products_to_show": 6
+        "products_to_show": 12,
+        "background_image": "shopify://shop_images/Chinadepot-carousel-design-1.png",
+        "background_position": 30
       }
     },
     "collection_rows": {
@@ -111,49 +113,56 @@
           "type": "row",
           "settings": {
             "title": "Decoratiuni pentru casa",
-            "collection": "decoratiuni"
+            "collection": "decoratiuni",
+            "background_position": 50
           }
         },
         "row_bucatarie": {
           "type": "row",
           "settings": {
             "title": "Bucatarie",
-            "collection": "frontpage"
+            "collection": "frontpage",
+            "background_position": 50
           }
         },
         "row_auto": {
           "type": "row",
           "settings": {
             "title": "Auto & moto",
-            "collection": "auto-moto"
+            "collection": "auto-moto",
+            "background_position": 50
           }
         },
         "row_gradina": {
           "type": "row",
           "settings": {
             "title": "Gradina",
-            "collection": "gradina"
+            "collection": "gradina",
+            "background_position": 50
           }
         },
         "row_jucarii": {
           "type": "row",
           "settings": {
             "title": "Jucarii",
-            "collection": "jucarii"
+            "collection": "jucarii",
+            "background_position": 50
           }
         },
         "row_animale": {
           "type": "row",
           "settings": {
             "title": "Animale",
-            "collection": "animale"
+            "collection": "animale",
+            "background_position": 50
           }
         },
         "row_mercerie": {
           "type": "row",
           "settings": {
             "title": "Mercerie",
-            "collection": "mercerie"
+            "collection": "mercerie",
+            "background_position": 50
           }
         }
       },
