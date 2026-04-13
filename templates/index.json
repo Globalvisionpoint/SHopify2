@@ -101,9 +101,7 @@
       "settings": {
         "heading": "Noutati",
         "collection": "auto-moto",
-        "products_to_show": 12,
-        "background_image": "shopify://shop_images/Chinadepot-carousel-design-1.png",
-        "background_position": 30
+        "products_to_show": 6
       }
     },
     "collection_rows": {
@@ -113,56 +111,49 @@
           "type": "row",
           "settings": {
             "title": "Decoratiuni pentru casa",
-            "collection": "decoratiuni",
-            "background_position": 50
+            "collection": "decoratiuni"
           }
         },
         "row_bucatarie": {
           "type": "row",
           "settings": {
             "title": "Bucatarie",
-            "collection": "frontpage",
-            "background_position": 50
+            "collection": "frontpage"
           }
         },
         "row_auto": {
           "type": "row",
           "settings": {
             "title": "Auto & moto",
-            "collection": "auto-moto",
-            "background_position": 50
+            "collection": "auto-moto"
           }
         },
         "row_gradina": {
           "type": "row",
           "settings": {
             "title": "Gradina",
-            "collection": "gradina",
-            "background_position": 50
+            "collection": "gradina"
           }
         },
         "row_jucarii": {
           "type": "row",
           "settings": {
             "title": "Jucarii",
-            "collection": "jucarii",
-            "background_position": 50
+            "collection": "jucarii"
           }
         },
         "row_animale": {
           "type": "row",
           "settings": {
             "title": "Animale",
-            "collection": "animale",
-            "background_position": 50
+            "collection": "animale"
           }
         },
         "row_mercerie": {
           "type": "row",
           "settings": {
             "title": "Mercerie",
-            "collection": "mercerie",
-            "background_position": 50
+            "collection": "mercerie"
           }
         }
       },

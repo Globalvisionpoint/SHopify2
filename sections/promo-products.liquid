@@ -1,5 +1,4 @@
-<section class="promo-products section-space section-space--lg"
-  {% if section.settings.background_image != blank %}style="background-image: url('{{ section.settings.background_image | image_url: width: 1920 }}'); background-position-y: {{ section.settings.background_position }}%;"{% endif %}>
+<section class="promo-products section-space section-space--lg">
   <div class="page-width">
     <div class="section-bar">
       <h2 class="section-bar__title">{{ section.settings.heading }}</h2>
@@ -78,20 +77,6 @@
       "max": 12,
       "step": 1,
       "default": 6
-    },
-    {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Imagine fundal"
-    },
-    {
-      "type": "range",
-      "id": "background_position",
-      "label": "Pozitie imagine (sus=0, jos=100)",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "default": 50
     }
   ],
   "presets": [

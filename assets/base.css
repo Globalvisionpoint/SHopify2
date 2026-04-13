@@ -1082,19 +1082,14 @@ textarea {
 .promo-products {
   margin-bottom: 2cm;
   margin-top: 6cm;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-}
-
-.promo-products .page-width {
-  position: relative;
-  z-index: 1;
 }
 
 .promo-products .rail-carousel {
   margin-bottom: 0;
+}
+
+.promo-products .page-width {
+  position: relative;
 }
 
 .promo-products__backdrop {
@@ -1201,14 +1196,6 @@ textarea {
 
 .collection-rows__item {
   margin-top: 18px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-}
-
-.collection-rows .rail-carousel {
-  margin-bottom: 5cm;
 }
 
 .collection-rows__head {
