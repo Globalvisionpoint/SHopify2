@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     header.style.left = '0';
     header.style.right = '0';
     header.style.zIndex = '999';
-    body.style.paddingTop = `${header.offsetHeight}px`;
+    body.style.paddingTop = '0';
   };
 
   syncStickyOffset();
